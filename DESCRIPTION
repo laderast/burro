@@ -1,0 +1,23 @@
+Package: burro
+Type: Package
+Title: Shiny App Package for setting up a data exploration session ("burro"w into the data)
+Version: 0.1.0
+Author: Ted Laderas
+Maintainer: Ted Laderas <ted.laderas@gmail.com>
+Description: Allows the teacher to deploy a simple data exploration app for exploring a dataset (mostly for teaching purposes).
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    shinydashboard,
+    ggplot2,
+    visdat,
+    skimr,
+    naniar,
+    data.table,
+    magrittr
+Depends: 
+    shiny
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0
