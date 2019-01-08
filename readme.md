@@ -1,4 +1,4 @@
-# `burro`: A Shiny Data Explorer for Teaching
+# `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
 
 ## Why `burro`?
 
@@ -15,6 +15,8 @@ devtools::install_github("laderast/burro")
 ```
 
 ## Running `burro` on `NHANES` Data
+
+
 
 You can see the `burro` app for the `NHANES` data here: https://tladeras.shinyapps.io/nhanes_explore/
 
@@ -33,3 +35,6 @@ covariates <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
                 
 explore_data(NHANES, covariates, outcome_var)
 ```
+## Acknowledgements
+
+`burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 
