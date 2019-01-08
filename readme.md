@@ -14,7 +14,9 @@ By concentrating on the data visualzation rather than the coding, `burro` lets u
 devtools::install_github("laderast/burro")
 ```
 
-## Running `burro` on NHANES Data
+## Running `burro` on `NHANES` Data
+
+You can see the `burro` app for the `NHANES` data here: https://tladeras.shinyapps.io/nhanes_explore/
 
 ```
 library(burro)
