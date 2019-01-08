@@ -1,5 +1,7 @@
 # `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
 
+![burro-hex](img/burro2.png)
+
 ## Why `burro`(w) into your data?
 
 Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and the analysis of the data. `burro` attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via `shinyapps.io` or other Shiny hosts. 
@@ -46,3 +48,13 @@ explore_data(NHANES, covariates, outcome_var)
 `burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 
 
 `burro` was partially developed with funding from Big Data to Knowledge (BD2K) and the National Library of Medicine T15 Training Grant supplement.
+
+`burro` hex sticker uses clipart [https://www.freepik.com/free-vector/donkey-head_763369.htm](Designed by Freepik).
+
+## Related Packages
+
+The `esquisse` package (https://github.com/dreamRs/esquisse) is a wonderful start to making a drag and drop visualization tool in R. Check it out!
+
+## License
+
+`burro` is released under an Apache 2.0 licenase.
