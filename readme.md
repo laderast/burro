@@ -1,6 +1,6 @@
 # `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
 
-![burro-hex](img/burro2.png)
+![burro-hex](img/burro3.png)
 
 ## Why `burro`(w) into your data?
 
@@ -49,7 +49,7 @@ explore_data(NHANES, covariates, outcome_var)
 
 `burro` was partially developed with funding from Big Data to Knowledge (BD2K) and the National Library of Medicine T15 Training Grant supplement.
 
-`burro` hex sticker uses clipart [https://www.freepik.com/free-vector/donkey-head_763369.htm](Designed by Freepik).
+`burro` hex sticker uses clipart [Designed by Freepik](https://www.freepik.com/free-vector/donkey-head_763369.htm).
 
 ## Related Packages
 
