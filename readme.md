@@ -44,3 +44,5 @@ explore_data(NHANES, covariates, outcome_var)
 ## Acknowledgements
 
 `burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 
+
+`burro` was partially developed with funding from Big Data to Knowledge (BD2K) and the National Library of Medicine T15 Training Grant supplement.
