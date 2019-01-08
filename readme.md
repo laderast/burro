@@ -14,9 +14,15 @@ By concentrating on the data visualzation rather than the coding, `burro` lets u
 devtools::install_github("laderast/burro")
 ```
 
+## Dataset requirements
+
+`burro` expects a dataset as a `data.frame` or `data.table`. The dataset should have at least 2 numeric variables and two categorical variables. 
+
+
+`burro` requires an *outcome variable*, which should be categorical/factor.
+It's on my list of things to do to make `burro` adaptive to the data passed into it, but it currently is pretty inflexible about these two things. 
+
 ## Running `burro` on `NHANES` Data
-
-
 
 You can see the `burro` app for the `NHANES` data here: https://tladeras.shinyapps.io/nhanes_explore/
 
