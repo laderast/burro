@@ -1,7 +1,16 @@
-library(shiny)
+# `burro`: A Shiny Data Explorer for Teaching
+
+## Installing
+
+```{r}
+devtools::install_github("laderast/burro")
+```
+
+## Running `burro` on NHANES Data
+
+```
 library(burro)
-library(NHANES)
-data("NHANES")
+data(NHANES)
 
 ##specify outcome variable here
 outcome_var <- c("Depressed")
@@ -11,6 +20,6 @@ covariates <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
                 "BMI_WHO", "BPSysAve", "TotChol", "Depressed", "LittleInterest",
                 "SleepHrsNight", "SleepTrouble", "TVHrsDay", "AlcoholDay",
                 "Marijuana", "RegularMarij", "HardDrugs")
-
-app <- explore_data(NHANES, covariates, outcome_var)
-runApp(app)
+                
+explore_data(NHANES, covariates, outcome_var)
+```
