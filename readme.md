@@ -28,6 +28,8 @@ An optional (though helpful) requirement is to have a data dictionary which has 
 
 ## Running `burro` on `NHANES` Data
 
+![burro app for NHANES](img/biopics.png)
+
 Here we make a `burro` app using the `explore_data` option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (`Depressed`, the number of depressive episodes). 
 
 You can see the `burro` app for the `NHANES` data here: https://tladeras.shinyapps.io/nhanes_explore/
@@ -49,6 +51,8 @@ explore_data(NHANES, covariates, outcome_var)
 ```
 
 ## Running `burro` on `biopics` data from `fivethirtyeight`
+
+![burro app for biopics](img/biopics.png)
 
 We can examine the `biopics` dataset using `burro`. We specify our `outcome_var` to be `subject_sex`, so we can examine everything through the facet of gender.
 
