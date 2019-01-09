@@ -4,11 +4,11 @@
 
 ## Why `burro`(w) into your data?
 
-Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and analysis. `burro` attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via `shinyapps.io` or other Shiny hosts. 
+Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and analysis. `burro` attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via `shinyapps.io` or other Shiny hosts. You can see an example here: https://tladeras.shinyapps.io/nhanes_explore/
 
 We use `burro` as an introductory tool for EDA by using it in "data scavenger hunts", where groups of students are given specific questions to answer about the data, and then have to show their fellow students the answer and how the discovered it. Looking at the data together is vital to building understanding of the data together. 
 
-By concentrating on the data visualization first, `burro` apps let us have conversations about the data first, and hopefully motivate students to learn more tools of EDA such as `ggplot`, `visdat`, and `skimr`.
+By concentrating on the data visualization first, `burro` apps let us have conversations about the data, and hopefully motivate students to learn more tools of EDA such as `ggplot`, `visdat`, and `skimr`.
 
 ## Installing `burro`
 
