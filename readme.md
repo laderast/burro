@@ -66,7 +66,7 @@ explore_data(biopics, outcome_var = "subject_sex")
 
 `burro` was partially developed with funding from Big Data to Knowledge (BD2K) and a National Library of Medicine T15 Training Grant supplement for the development of data science curricula.
 
-`burro` hex sticker uses clipart [Designed by Freepik](https://www.freepik.com/free-vector/donkey-head_763369.htm).
+The `burro` hex sticker uses clipart [designed by Freepik](https://www.freepik.com/free-vector/donkey-head_763369.htm).
 
 ## Related Packages
 
