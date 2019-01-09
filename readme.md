@@ -4,11 +4,11 @@
 
 ## Why `burro`(w) into your data?
 
-Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and the analysis of the data. `burro` attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via `shinyapps.io` or other Shiny hosts. 
+Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and the analysis of data. `burro` attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via `shinyapps.io` or other Shiny hosts. 
 
-We use `burro` as an introductory tool for EDA by using it in "data scavenger hunts", where groups of students are given specific questions to answer about the data, and then have to show their fellow students the answer and how the discovered it.
+We use `burro` as an introductory tool for EDA by using it in "data scavenger hunts", where groups of students are given specific questions to answer about the data, and then have to show their fellow students the answer and how the discovered it. Looking at the data together is vital to building and understanding the data together. 
 
-By concentrating on the data visualzation rather than the coding, `burro` lets us have conversations about the data first, and hopefully motivate the students to learn more tools of EDA such as `ggplot`, `visdat`, and `skimr`.
+By concentrating on the data visualization first, `burro` apps let us have conversations about the data first, and hopefully motivate students to learn more tools of EDA such as `ggplot`, `visdat`, and `skimr`.
 
 ## Installing `burro`
 
@@ -43,6 +43,18 @@ covariates <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
                 
 explore_data(NHANES, covariates, outcome_var)
 ```
+
+## Running `burro` on `biopics` data from `fivethirtyeight`
+
+```{r}
+library(burro)
+library(fivethirtyeight)
+data(biopics)
+explore_data(biopics, outcome_var = "subject_sex")
+
+```
+
+
 ## Acknowledgements
 
 `burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 

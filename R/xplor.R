@@ -29,15 +29,22 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
     }
   }
 
-  myDataFrame <- data.table::data.table(dataset)[,covariates,with=FALSE]
+  myDataFrame <- data.table(dataset)
+
+
+  if(!is.null(covariates)){
+    myDataFrame <- dataset[,covariates,with=FALSE]
+  }
+
+  myDataFrame <- burro:::sanitize_data_frame(myDataFrame, outcome_var)
 
   remove_categories <- outcome_var
   categoricalVars <- sort(names(burro:::get_category_variables(myDataFrame)))
   cat_no_outcome <- setdiff(categoricalVars, remove_categories)
 
-  remove_numeric <- c("nsrrid")
   numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
-  numericVars <- setdiff(numericVars, remove_numeric)
+
+
 
   ggplot2::theme_set(ggplot2::theme_classic(base_size = 15))
   #data_dictionary <- readr::read_csv("data/data_dictionary.csv") %>%
@@ -169,6 +176,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
     # })
 
     output$visdat <- renderPlot({
+      head(dataOut())
+
       visdat::vis_dat(data.frame(dataOut())) +
         theme(axis.text.x = element_text(size = 15, angle = 45))
     })
@@ -260,5 +269,23 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
   }
 
   shinyApp(ui = ui, server = server)
+
+}
+
+
+sanitize_data_frame <- function(dataset, outcome_var){
+
+  myDataFrame <- dataset
+
+  remove_categories <- outcome_var
+  categoricalVars <- sort(names(burro:::get_category_variables(myDataFrame)))
+  cat_no_outcome <- setdiff(categoricalVars, remove_categories)
+
+  numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
+  #numericVars <- setdiff(numericVars, remove_numeric)
+
+  myDataFrame <- myDataFrame[,c(numericVars, categoricalVars), with=FALSE]
+
+  myDataFrame
 
 }
