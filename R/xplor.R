@@ -45,7 +45,7 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
 
   }
 
-  myDataFrame <- data.table(dataset)
+  myDataFrame <- data.table::data.table(dataset)
 
   if(!is.null(covariates)){
     myDataFrame <- myDataFrame[,covariates,with=FALSE]
@@ -302,9 +302,57 @@ sanitize_data_frame <- function(dataset, outcome_var){
 
 }
 
+#' Title
+#'
+#' @param dataset
+#' @param covariates
+#' @param outcome_var
+#'
+#' @return shiny app in a folder
+#' @export
+#' @import glue
+#' @import here
+#'
+#' @examples
+#'
 build_shiny_app <- function(dataset, covariates, outcome_var) {
 
-  out_app_string <- "library(burro) \n
-    burro::explore_data(%s)"
 
+  out_covar_string <- c("c(\'{outvar}\')")
+  outvar <- glue_collapse(covariates, sep="\',\'")
+
+  covar_string <- glue(out_covar_string)
+  folder_name <- deparse(substitute(dataset))
+
+  usethis::create_project(here(folder_name),open=FALSE, rstudio=FALSE)
+
+  #dir.create(here(folder_name),showWarnings = FALSE)
+
+  #usethis::use_data(dataset, overwrite=TRUE, internal=TRUE)
+
+  dir.create(here::here(folder_name, "data"), showWarnings = FALSE)
+  saveRDS(dataset, file=here(folder_name,"data", "dataset.rds"))
+
+  out_app_string <- "library(burro)
+  library(shiny)
+  library(here)
+  dataset <- readRDS(here('data','dataset.rds'))
+    outcome_var <- '{outcome_var}'
+  covars <- {covar_string}
+  app <- burro::explore_data(dataset, covars, outcome_var)
+  shiny::runApp(app)"
+
+  out_string <- glue(out_app_string)
+
+  writeLines(out_string, con=here(folder_name, "app.R"))
+
+  app_loc <- here(folder_name)
+
+  print(glue("your app is in {app_loc}"))
+
+}
+
+test_deparse <- function(dataset){
+
+  deparse(substitute(dataset))
 }

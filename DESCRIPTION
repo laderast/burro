@@ -16,7 +16,10 @@ Imports:
     skimr,
     naniar,
     data.table,
-    magrittr
+    magrittr,
+    glue,
+    usethis,
+    here
 Depends: 
     shiny
 Roxygen: list(markdown = TRUE)
