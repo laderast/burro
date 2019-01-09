@@ -1,10 +1,12 @@
 #' Title
 #'
 #' @param dataset - a data frame
-#' @param covariates - a character vector of column names you want to include
+#' @param covariates - Optional. a character vector of column names you want
+#' to include in the dataset
 #' @param outcome_var - a categorical variable that describes an outcome to examine
 #'
-#' @return
+#' @return A Shiny App object that can either be run in the console or on an external
+#' shiny server such as shinyapps.io
 #' @export
 #' @import shiny
 #' @import shinydashboard
@@ -42,7 +44,6 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
 
 
   }
-
 
   myDataFrame <- data.table(dataset)
 
@@ -298,5 +299,12 @@ sanitize_data_frame <- function(dataset, outcome_var){
   myDataFrame <- myDataFrame[,c(numericVars, categoricalVars), with=FALSE]
 
   myDataFrame
+
+}
+
+build_shiny_app <- function(dataset, covariates, outcome_var) {
+
+  out_app_string <- "library(burro) \n
+    burro::explore_data(%s)"
 
 }

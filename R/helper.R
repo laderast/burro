@@ -1,13 +1,11 @@
 ## Some helper functions to simplify our app
 
 
-#' Return the numeric categorical variables
+#' Return the numeric categorical variables in a data frame
 #'
 #' @param df
 #'
 #' @return character vector of categorial variables in data.frame
-#'
-#' @examples
 get_numeric_variables <- function(df){
   varClass <- sapply(df, class)
 
@@ -21,8 +19,6 @@ get_numeric_variables <- function(df){
 #' @param df
 #'
 #' @return named list with each entry listing all categories within a variable in the df
-#'
-#' @examples
 get_category_variables <- function(df) {
 
   ## get variable classes

@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{get_numeric_variables}
 \alias{get_numeric_variables}
-\title{Return the numeric categorical variables}
+\title{Return the numeric categorical variables in a data frame}
 \usage{
 get_numeric_variables(df)
 }
@@ -13,5 +13,5 @@ get_numeric_variables(df)
 character vector of categorial variables in data.frame
 }
 \description{
-Return the numeric categorical variables
+Return the numeric categorical variables in a data frame
 }

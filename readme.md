@@ -60,6 +60,14 @@ explore_data(biopics, outcome_var = "subject_sex")
 
 ```
 
+## Run `burro` on `diamonds`
+
+```{r}
+library(ggplot)
+data(diamonds)
+burro::explore_data(diamonds, outcome_var="Cut")
+```
+
 ## Acknowledgements
 
 `burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 
@@ -74,4 +82,4 @@ The `esquisse` package (https://github.com/dreamRs/esquisse) is a wonderful star
 
 ## License
 
-`burro` is released under an Apache 2.0 licenase.
+`burro` is released under an Apache 2.0 license.

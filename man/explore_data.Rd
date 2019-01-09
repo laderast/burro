@@ -12,12 +12,17 @@ explore_data(dataset, covariates = NULL, outcome_var)
 }}
 
 \item{covariates}{\itemize{
-\item a character vector of column names you want to include
+\item Optional. a character vector of column names you want
+to include in the dataset
 }}
 
 \item{outcome_var}{\itemize{
 \item a categorical variable that describes an outcome to examine
 }}
+}
+\value{
+A Shiny App object that can either be run in the console or on an external
+shiny server such as shinyapps.io
 }
 \description{
 Title
