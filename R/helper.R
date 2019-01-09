@@ -28,8 +28,10 @@ get_category_variables <- function(df) {
   ## get variable classes
   varClass <- sapply(df, class)
 
+  varClass <- sapply(varClass, function(x){x[1]})
+
   ## grab characters - they may be categorical, or unique ids
-  characterVars <- names(varClass[varClass %in% c("character", "factor")])
+  characterVars <- names(varClass[varClass %in% c("character", "factor", "ordered")])
 
   #remove those character variables that aren't
   char_list <- sapply(characterVars, function(x){

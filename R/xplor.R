@@ -1,8 +1,8 @@
 #' Title
 #'
-#' @param data
-#' @param covariates
-#' @param outcome_var
+#' @param dataset - a data frame
+#' @param covariates - a character vector of column names you want to include
+#' @param outcome_var - a categorical variable that describes an outcome to examine
 #'
 #' @return
 #' @export
@@ -13,6 +13,10 @@
 #'
 #'
 #' @examples
+#' library(ggplot)
+#' data(diamonds)
+#' burro::explore_data(diamonds, outcome_var="Cut")
+#'
 explore_data <- function(dataset, covariates=NULL, outcome_var) {
 
   # need to check column names and outcome var names in data
@@ -21,19 +25,29 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
   }
 
   if(!is.null(covariates)) {
+
     covariates_in_data <- covariates %in% colnames(dataset)
     num_in_data <- which(covariates_in_data)
+    not_in_data <- which(!covariates_in_data)
 
     if(length(num_in_data) == 0) {
       stop("Your covariates aren't in the dataset - make sure they correpond to column names in the data")
     }
+
+    if(length(not_in_data) > 0) {
+      warning(
+        paste0("The following covariates weren't in the dataset:", paste(covariates[not_in_data]))
+      )
+    }
+
+
   }
+
 
   myDataFrame <- data.table(dataset)
 
-
   if(!is.null(covariates)){
-    myDataFrame <- dataset[,covariates,with=FALSE]
+    myDataFrame <- myDataFrame[,covariates,with=FALSE]
   }
 
   myDataFrame <- burro:::sanitize_data_frame(myDataFrame, outcome_var)
@@ -44,12 +58,9 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
 
   numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
 
-
-
   ggplot2::theme_set(ggplot2::theme_classic(base_size = 15))
   #data_dictionary <- readr::read_csv("data/data_dictionary.csv") %>%
   #  dplyr::filter(VariableName %in% covariates)
-
 
   ui <- dashboardPage(
     header= dashboardHeader(

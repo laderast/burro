@@ -4,11 +4,27 @@
 \alias{explore_data}
 \title{Title}
 \usage{
-explore_data(data, covariates = NULL, outcome_var)
+explore_data(dataset, covariates = NULL, outcome_var)
 }
 \arguments{
-\item{outcome_var}{}
+\item{dataset}{\itemize{
+\item a data frame
+}}
+
+\item{covariates}{\itemize{
+\item a character vector of column names you want to include
+}}
+
+\item{outcome_var}{\itemize{
+\item a categorical variable that describes an outcome to examine
+}}
 }
 \description{
 Title
+}
+\examples{
+library(ggplot)
+data(diamonds)
+burro::explore_data(diamonds, outcome_var="Cut")
+
 }
