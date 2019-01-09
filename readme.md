@@ -28,7 +28,7 @@ An optional (though helpful) requirement is to have a data dictionary which has 
 
 ## Running `burro` on `NHANES` Data
 
-![burro app for NHANES](img/biopics.png)
+![burro app for NHANES](img/nhanes.png)
 
 Here we make a `burro` app using the `explore_data` option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (`Depressed`, the number of depressive episodes). 
 
