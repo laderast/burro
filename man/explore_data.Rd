@@ -28,7 +28,7 @@ shiny server such as shinyapps.io
 Title
 }
 \examples{
-library(ggplot)
+library(ggplot2)
 data(diamonds)
 burro::explore_data(diamonds, outcome_var="Cut")
 

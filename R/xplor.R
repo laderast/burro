@@ -15,11 +15,14 @@
 #'
 #'
 #' @examples
-#' library(ggplot)
+#' library(ggplot2)
 #' data(diamonds)
 #' burro::explore_data(diamonds, outcome_var="Cut")
 #'
 explore_data <- function(dataset, covariates=NULL, outcome_var) {
+
+  dataset_name <- deparse(substitute(dataset))
+
 
   # need to check column names and outcome var names in data
   if(!outcome_var %in% colnames(dataset)){
@@ -65,13 +68,15 @@ explore_data <- function(dataset, covariates=NULL, outcome_var) {
 
   ui <- dashboardPage(
     header= dashboardHeader(
-      title = "Data Explorer"
+      title = dataset_name
     ),
     sidebar=dashboardSidebar(
       sidebarMenu(
         menuItem("Overview", tabName = "overview", selected=TRUE),
         menuItem("Categorical", tabName = "categorical"),
-        menuItem("Continuous", tabName = "continuous"))
+        menuItem("Continuous", tabName = "continuous")),
+        shiny::br(),
+        tags$div(tags$a(href="http://github.com/laderast/burro", "Built with burro!"))
     ),
     body=  dashboardBody(
       tabItems(
@@ -302,19 +307,24 @@ sanitize_data_frame <- function(dataset, outcome_var){
 
 }
 
-#' Title
+#' Make a shiny app from a dataset
 #'
-#' @param dataset
-#' @param covariates
-#' @param outcome_var
+#' @param dataset - data.frame or data.table of data
+#' @param covariates - character vector of covariates, corresponding to the column names of dataset
+#' @param outcome_var - character of variable name in dataset correpsonding to the outcome of interest
 #'
 #' @return shiny app in a folder
 #' @export
-#' @import glue
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @import here
 #'
 #' @examples
-#'
+#' #create a new project/folder in RStudio before you run this
+#' library(ggplot2)
+#' data(diamonds)
+#' covars <- colnames(diamonds)
+#' burro::build_shiny_app(dataset=diamonds, covariates=covars, outcome_var="cut")
 build_shiny_app <- function(dataset, covariates, outcome_var) {
 
 
@@ -324,35 +334,27 @@ build_shiny_app <- function(dataset, covariates, outcome_var) {
   covar_string <- glue(out_covar_string)
   folder_name <- deparse(substitute(dataset))
 
-  usethis::create_project(here(folder_name),open=FALSE, rstudio=FALSE)
-
-  #dir.create(here(folder_name),showWarnings = FALSE)
-
-  #usethis::use_data(dataset, overwrite=TRUE, internal=TRUE)
-
-  dir.create(here::here(folder_name, "data"), showWarnings = FALSE)
-  saveRDS(dataset, file=here(folder_name,"data", "dataset.rds"))
+  dir.create(here::here("data"), showWarnings = FALSE)
+  saveRDS(dataset, file=here("data", "dataset.rds"))
 
   out_app_string <- "library(burro)
   library(shiny)
   library(here)
+
   dataset <- readRDS(here('data','dataset.rds'))
     outcome_var <- '{outcome_var}'
+
+  #edit your covariates here
   covars <- {covar_string}
+
+  #build the burro app and run it
   app <- burro::explore_data(dataset, covars, outcome_var)
   shiny::runApp(app)"
 
   out_string <- glue(out_app_string)
 
-  writeLines(out_string, con=here(folder_name, "app.R"))
+  writeLines(out_string, con=here("app.R"))
 
-  app_loc <- here(folder_name)
+  print("Your burro App has been created in your project folder! \n Open the app.R file in RStudio and hit the 'Run App' button to run it")
+  }
 
-  print(glue("your app is in {app_loc}"))
-
-}
-
-test_deparse <- function(dataset){
-
-  deparse(substitute(dataset))
-}

@@ -2,16 +2,33 @@
 % Please edit documentation in R/xplor.R
 \name{build_shiny_app}
 \alias{build_shiny_app}
-\title{Title}
+\title{Make a shiny app from a dataset}
 \usage{
 build_shiny_app(dataset, covariates, outcome_var)
 }
 \arguments{
-\item{outcome_var}{}
+\item{dataset}{\itemize{
+\item data.frame or data.table of data
+}}
+
+\item{covariates}{\itemize{
+\item character vector of covariates, corresponding to the column names of dataset
+}}
+
+\item{outcome_var}{\itemize{
+\item character of variable name in dataset correpsonding to the outcome of interest
+}}
 }
 \value{
 shiny app in a folder
 }
 \description{
-Title
+Make a shiny app from a dataset
+}
+\examples{
+#create a new project/folder in RStudio before you run this
+library(ggplot2)
+data(diamonds)
+covars <- colnames(diamonds)
+burro::build_shiny_app(dataset=diamonds, covariates=covars, outcome_var="cut")
 }
