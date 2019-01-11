@@ -22,27 +22,33 @@ There are multiple key elements of data scavenger hunts:
 1. Divide the participants into groups and assign questions
 1. Have recaps where participant groups show each other how they answered the question
 
-We highly recommend having a Code of Conduct for these sessions.
+We highly recommend having a [Code of Conduct](https://biodataclubkit.github.io/code_of_conduct/) for these sessions.
 
-## 1. Have a Dataset
+## Have a Dataset
 
+This is the most important part! 
 
+Check out [Building a burro app](https://laderast.github.io/burro/articles/making_a_burro_app.html) on how to build your app.
+
+We're going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset. 
+
+```{r eval=FALSE}
+install.packages("NHANES")
+```
+
+Load it up and take a look at the documentation for this dataset:
+
+```{r}
+data(NHANES)
+?NHANES
+```
+
+## Have a Research Question
+
+The research question will focus the exploration of the data by deciding an outcome. For the NHANES data, we want to focus on Depression. In the `NHANES` dataset, Depression is represented as the `Depressed` variable.
 
 ## Data Scavenger Hunt Questions
 
+In designing the questions you will use in the scavenger hunt, you should do some prework and explore the dataset. This will inform your questions that you ask participants to look for.
 
 
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

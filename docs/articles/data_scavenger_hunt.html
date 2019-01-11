@@ -98,30 +98,31 @@
 <li>Divide the participants into groups and assign questions</li>
 <li>Have recaps where participant groups show each other how they answered the question</li>
 </ol>
-<p>We highly recommend having a Code of Conduct for these sessions.</p>
+<p>We highly recommend having a <a href="https://biodataclubkit.github.io/code_of_conduct/">Code of Conduct</a> for these sessions.</p>
 </div>
 <div id="have-a-dataset" class="section level2">
 <h2 class="hasAnchor">
-<a href="#have-a-dataset" class="anchor"></a>1. Have a Dataset</h2>
+<a href="#have-a-dataset" class="anchor"></a>Have a Dataset</h2>
+<p>This is the most important part!</p>
+<p>Check out <a href="https://laderast.github.io/burro/articles/making_a_burro_app.html">Building a burro app</a> on how to build your app.</p>
+<p>We’re going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"NHANES"</span>)</a></code></pre></div>
+<p>Load it up and take a look at the documentation for this dataset:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(NHANES)</a></code></pre></div>
+<pre><code>## Warning in data(NHANES): data set 'NHANES' not found</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">?NHANES</a></code></pre></div>
+<pre><code>## No documentation for 'NHANES' in specified packages and libraries:
+## you could try '??NHANES'</code></pre>
+</div>
+<div id="have-a-research-question" class="section level2">
+<h2 class="hasAnchor">
+<a href="#have-a-research-question" class="anchor"></a>Have a Research Question</h2>
+<p>The research question will focus the exploration of the data by deciding an outcome. For the NHANES data, we want to focus on Depression. In the <code>NHANES</code> dataset, Depression is represented as the <code>Depressed</code> variable.</p>
 </div>
 <div id="data-scavenger-hunt-questions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-scavenger-hunt-questions" class="anchor"></a>Data Scavenger Hunt Questions</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(cars)</a></code></pre></div>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-</div>
-<div id="including-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#including-plots" class="anchor"></a>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="data_scavenger_hunt_files/figure-html/pressure-1.png" width="700"></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<p>In designing the questions you will use in the scavenger hunt, you should do some prework and explore the dataset. This will inform your questions that you ask participants to look for.</p>
 </div>
   </div>
 
@@ -131,9 +132,9 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#what-is-a-data-scavenger-hunt">What is a Data Scavenger Hunt?</a></li>
-      <li><a href="#have-a-dataset">1. Have a Dataset</a></li>
+      <li><a href="#have-a-dataset">Have a Dataset</a></li>
+      <li><a href="#have-a-research-question">Have a Research Question</a></li>
       <li><a href="#data-scavenger-hunt-questions">Data Scavenger Hunt Questions</a></li>
-      <li><a href="#including-plots">Including Plots</a></li>
       </ul>
 </div>
       </div>

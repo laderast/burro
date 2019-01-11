@@ -12,6 +12,8 @@ By concentrating on the data visualization first, `burro` apps let us have conve
 
 ## Installing `burro`
 
+`burro` is currently only on github and not on CRAN yet. To install it, run the following.
+
 ```{r}
 install.packages("devtools")
 devtools::install_github("laderast/burro")
@@ -74,7 +76,7 @@ burro::explore_data(diamonds, outcome_var="Cut")
 
 ## Acknowledgements
 
-`burro` uses many wonderful packages developed by Nicholas Tierney, rOpenSci, and others: `visdat`, `naniar`, and `skimr`, among others. 
+`burro` uses many wonderful packages developed by Nicholas Tierney and rOpenSci: [`visdat`](http://visdat.njtierney.com/), [`naniar`](http://naniar.njtierney.com/), and [`skimr`](https://github.com/ropensci/skimr). 
 
 `burro` was partially developed with funding from Big Data to Knowledge (BD2K) and a National Library of Medicine T15 Training Grant supplement for the development of data science curricula.
 

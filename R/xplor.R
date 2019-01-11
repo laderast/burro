@@ -22,6 +22,7 @@
 #' @import shinydashboard
 #' @import ggplot2
 #' @import dplyr
+#' @import skimr
 #'
 #'
 #' @examples
@@ -204,14 +205,13 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
     # })
 
     output$visdat <- renderPlot({
-      head(dataOut())
 
       visdat::vis_dat(data.frame(dataOut())) +
         theme(axis.text.x = element_text(size = 15, angle = 45))
     })
 
     output$summaryTable <- renderPrint({
-      skimr::skim(dataOut())
+      skimr::skim(dataOut()) #%>% skimr::kable()
     })
 
     output$missingTab <- renderPlot({
