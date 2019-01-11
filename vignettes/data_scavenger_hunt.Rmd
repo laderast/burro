@@ -39,6 +39,7 @@ install.packages("NHANES")
 Load it up and take a look at the documentation for this dataset:
 
 ```{r}
+library(NHANES)
 data(NHANES)
 ?NHANES
 ```
@@ -51,4 +52,4 @@ The research question will focus the exploration of the data by deciding an outc
 
 In designing the questions you will use in the scavenger hunt, you should do some prework and explore the dataset. This will inform your questions that you ask participants to look for.
 
-
+Try and map the complexity of the questions to the three menu items: 

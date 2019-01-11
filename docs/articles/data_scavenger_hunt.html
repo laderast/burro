@@ -108,11 +108,9 @@
 <p>We’re going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"NHANES"</span>)</a></code></pre></div>
 <p>Load it up and take a look at the documentation for this dataset:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(NHANES)</a></code></pre></div>
-<pre><code>## Warning in data(NHANES): data set 'NHANES' not found</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">?NHANES</a></code></pre></div>
-<pre><code>## No documentation for 'NHANES' in specified packages and libraries:
-## you could try '??NHANES'</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(NHANES)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(NHANES)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">?NHANES</a></code></pre></div>
 </div>
 <div id="have-a-research-question" class="section level2">
 <h2 class="hasAnchor">
@@ -123,6 +121,7 @@
 <h2 class="hasAnchor">
 <a href="#data-scavenger-hunt-questions" class="anchor"></a>Data Scavenger Hunt Questions</h2>
 <p>In designing the questions you will use in the scavenger hunt, you should do some prework and explore the dataset. This will inform your questions that you ask participants to look for.</p>
+<p>Try and map the complexity of the questions to the three menu items:</p>
 </div>
   </div>
 

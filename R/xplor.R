@@ -32,7 +32,8 @@
 #'    burro::explore_data(diamonds, outcome_var="cut")
 #' }
 explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
-
+  #needed to show spark histograms
+  Sys.setlocale("LC_CTYPE", "Chinese")
   dataset_name <- deparse(substitute(dataset))
 
 
