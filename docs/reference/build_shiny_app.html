@@ -86,6 +86,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/data_scavenger_hunt.html">Example Data Scavenger Hunt</a>
+    </li>
+    <li>
       <a href="../articles/making_a_burro_app.html">Making and Deploying a `burro` app</a>
     </li>
   </ul>
@@ -152,7 +155,10 @@
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>diamonds</span>)
 <span class='no'>covars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames</a></span>(<span class='no'>diamonds</span>)
-<span class='kw pkg'>burro</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/burro/topics/build_shiny_app'>build_shiny_app</a></span>(<span class='kw'>dataset</span><span class='kw'>=</span><span class='no'>diamonds</span>, <span class='kw'>covariates</span><span class='kw'>=</span><span class='no'>covars</span>, <span class='kw'>outcome_var</span><span class='kw'>=</span><span class='st'>"cut"</span>)</div><div class='output co'>#&gt; [1] "Your burro App has been created in your project folder! \n Open the app.R file in RStudio and hit the 'Run App' button to run it"</div></pre>
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()){
+<span class='kw pkg'>burro</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/burro/topics/build_shiny_app'>build_shiny_app</a></span>(<span class='kw'>dataset</span><span class='kw'>=</span><span class='no'>diamonds</span>,
+<span class='kw'>covariates</span><span class='kw'>=</span><span class='no'>covars</span>, <span class='kw'>outcome_var</span><span class='kw'>=</span><span class='st'>"cut"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

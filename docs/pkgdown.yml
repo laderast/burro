@@ -2,5 +2,6 @@ pandoc: '2.3'
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
+  data_scavenger_hunt: data_scavenger_hunt.html
   making_a_burro_app: making_a_burro_app.html
 

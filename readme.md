@@ -86,4 +86,4 @@ The `esquisse` package (https://github.com/dreamRs/esquisse) is a wonderful star
 
 ## License
 
-`burro` is released under an Apache 2.0 license.
+`burro` is released under a MIT license.

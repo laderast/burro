@@ -30,5 +30,8 @@ Make a shiny app from a dataset
 library(ggplot2)
 data(diamonds)
 covars <- colnames(diamonds)
-burro::build_shiny_app(dataset=diamonds, covariates=covars, outcome_var="cut")
+if(interactive()){
+burro::build_shiny_app(dataset=diamonds,
+covariates=covars, outcome_var="cut")
+}
 }

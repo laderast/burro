@@ -1,12 +1,22 @@
-#' Title
+#' Explore a dataaset using a simple app
 #'
 #' @param dataset - a data frame
 #' @param covariates - Optional. a character vector of column names you want
 #' to include in the dataset
 #' @param outcome_var - a categorical variable that describes an outcome to examine
 #'
+#' `explore_data` gives you a simple shiny app to explore data, The app is tailored to the
+#'  covariate types of the data.frame/data.table that you pass to it.
+#'
+#'  Each menu item covers a different part of exploratory data analysis with
+#'  simple visualizations for discussion.
+#'
+#'  The tabs are automatically updated with variables depending on the variable types.
+#'
+#'
 #' @return A Shiny App object that can either be run in the console or on an external
-#' shiny server such as shinyapps.io
+#' shiny server such as shinyapps.io. For building the actual app.R, see
+#' build_shiny_app
 #' @export
 #' @import shiny
 #' @import shinydashboard
@@ -17,9 +27,10 @@
 #' @examples
 #' library(ggplot2)
 #' data(diamonds)
-#' burro::explore_data(diamonds, outcome_var="Cut")
-#'
-explore_data <- function(dataset, covariates=NULL, outcome_var) {
+#' if(interactive()){
+#'    burro::explore_data(diamonds, outcome_var="cut")
+#' }
+explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
 
   dataset_name <- deparse(substitute(dataset))
 
@@ -324,7 +335,10 @@ sanitize_data_frame <- function(dataset, outcome_var){
 #' library(ggplot2)
 #' data(diamonds)
 #' covars <- colnames(diamonds)
-#' burro::build_shiny_app(dataset=diamonds, covariates=covars, outcome_var="cut")
+#' if(interactive()){
+#' burro::build_shiny_app(dataset=diamonds,
+#' covariates=covars, outcome_var="cut")
+#' }
 build_shiny_app <- function(dataset, covariates, outcome_var) {
 
   out_covar_string <- c("c(\'{outvar}\')")

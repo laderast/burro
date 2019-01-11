@@ -2,9 +2,10 @@
 % Please edit documentation in R/xplor.R
 \name{explore_data}
 \alias{explore_data}
-\title{Title}
+\title{Explore a dataaset using a simple app}
 \usage{
-explore_data(dataset, covariates = NULL, outcome_var)
+explore_data(dataset, covariates = NULL, outcome_var,
+  data_dictionary = NULL)
 }
 \arguments{
 \item{dataset}{\itemize{
@@ -18,18 +19,28 @@ to include in the dataset
 
 \item{outcome_var}{\itemize{
 \item a categorical variable that describes an outcome to examine
-}}
+}
+
+\code{explore_data} gives you a simple shiny app to explore data, The app is tailored to the
+covariate types of the data.frame/data.table that you pass to it.
+
+Each menu item covers a different part of exploratory data analysis with
+simple visualizations for discussion.
+
+The tabs are automatically updated with variables depending on the variable types.}
 }
 \value{
 A Shiny App object that can either be run in the console or on an external
-shiny server such as shinyapps.io
+shiny server such as shinyapps.io. For building the actual app.R, see
+build_shiny_app
 }
 \description{
-Title
+Explore a dataaset using a simple app
 }
 \examples{
 library(ggplot2)
 data(diamonds)
-burro::explore_data(diamonds, outcome_var="Cut")
-
+if(interactive()){
+   burro::explore_data(diamonds, outcome_var="cut")
+}
 }

@@ -1,0 +1,48 @@
+---
+title: "Example Data Scavenger Hunt"
+author: "Ted Laderas"
+date: "January 11, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## What is a Data Scavenger Hunt?
+
+A Data Scavenger Hunt is an activity that gets people to explore data. The `burro` app serves as a simple entry point to exploring the data.  
+
+There are multiple key elements of data scavenger hunts:
+
+1. Find a Dataset and build the app
+1. Have an overarching research question
+1. Have a set of increasingly complex questions about the data for people to answer
+1. Quick intro session
+1. Divide the participants into groups and assign questions
+1. Have recaps where participant groups show each other how they answered the question
+
+We highly recommend having a Code of Conduct for these sessions.
+
+## 1. Have a Dataset
+
+
+
+## Data Scavenger Hunt Questions
+
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
