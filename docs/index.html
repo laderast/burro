@@ -45,6 +45,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/making_a_burro_app.html">Making and Deploying a `burro` app</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
 </div>
@@ -60,7 +72,7 @@
 <div id="burro-a-shiny-data-explorer-for-teaching-exploratory-data-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#burro-a-shiny-data-explorer-for-teaching-exploratory-data-analysis" class="anchor"></a><code>burro</code>: A Shiny Data Explorer for Teaching Exploratory Data Analysis</h1></div>
-<p><img src="img/burro3.png" alt="burro-hex"></p>
+<p><img src="reference/figures/burro3.png" alt="burro-hex"></p>
 <div id="why-burrow-into-your-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#why-burrow-into-your-data" class="anchor"></a>Why <code>burro</code>(w) into your data?</h2>
@@ -85,7 +97,7 @@ devtools::install_github("laderast/burro")</code></pre>
 <div id="running-burro-on-nhanes-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-burro-on-nhanes-data" class="anchor"></a>Running <code>burro</code> on <code>NHANES</code> Data</h2>
-<p><img src="img/nhanes.png" alt="burro app for NHANES"></p>
+<p><img src="reference/figures/nhanes.png" alt="burro app for NHANES"></p>
 <p>Here we make a <code>burro</code> app using the <code>explore_data</code> option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (<code>Depressed</code>, the number of depressive episodes).</p>
 <p>You can see the <code>burro</code> app for the <code>NHANES</code> data here: <a href="https://tladeras.shinyapps.io/nhanes_explore/" class="uri">https://tladeras.shinyapps.io/nhanes_explore/</a></p>
 <pre><code>library(burro)
@@ -106,7 +118,7 @@ explore_data(NHANES, covariates, outcome_var)</code></pre>
 <h2 class="hasAnchor">
 <a href="#running-burro-on-biopics-data-from-fivethirtyeight" class="anchor"></a>Running <code>burro</code> on <code>biopics</code> data from <code>fivethirtyeight</code>
 </h2>
-<p><img src="img/biopics.png" alt="burro app for biopics"></p>
+<p><img src="reference/figures/biopics.png" alt="burro app for biopics"></p>
 <p>We can examine the <code>biopics</code> dataset using <code>burro</code>. We specify our <code>outcome_var</code> to be <code>subject_sex</code>, so we can examine everything through the facet of gender.</p>
 <pre class="{r}"><code>library(burro)
 library(fivethirtyeight)
