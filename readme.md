@@ -1,6 +1,6 @@
 # `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
 
-![burro-hex](img/burro3.png)
+![burro-hex](man/figures/burro3.png)
 
 ## Why `burro`(w) into your data?
 
@@ -28,7 +28,7 @@ An optional (though helpful) requirement is to have a data dictionary which has 
 
 ## Running `burro` on `NHANES` Data
 
-![burro app for NHANES](img/nhanes.png)
+![burro app for NHANES](man/figures/nhanes.png)
 
 Here we make a `burro` app using the `explore_data` option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (`Depressed`, the number of depressive episodes). 
 
@@ -52,7 +52,7 @@ explore_data(NHANES, covariates, outcome_var)
 
 ## Running `burro` on `biopics` data from `fivethirtyeight`
 
-![burro app for biopics](img/biopics.png)
+![burro app for biopics](man/figures/biopics.png)
 
 We can examine the `biopics` dataset using `burro`. We specify our `outcome_var` to be `subject_sex`, so we can examine everything through the facet of gender.
 
