@@ -327,7 +327,6 @@ sanitize_data_frame <- function(dataset, outcome_var){
 #' burro::build_shiny_app(dataset=diamonds, covariates=covars, outcome_var="cut")
 build_shiny_app <- function(dataset, covariates, outcome_var) {
 
-
   out_covar_string <- c("c(\'{outvar}\')")
   outvar <- glue_collapse(covariates, sep="\',\'")
 
