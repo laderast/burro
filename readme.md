@@ -1,6 +1,6 @@
 # `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
 
-![burro-hex](man/figures/burro3.png)
+# <img src="man/figures/burro3.png" align="right" />
 
 ## Why `burro`(w) into your data?
 
