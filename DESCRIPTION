@@ -19,7 +19,8 @@ Imports:
     magrittr,
     glue,
     usethis,
-    here
+    here,
+    viridis
 Depends: 
     shiny
 Roxygen: list(markdown = TRUE)

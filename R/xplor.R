@@ -4,6 +4,9 @@
 #' @param covariates - Optional. a character vector of column names you want
 #' to include in the dataset
 #' @param outcome_var - a categorical variable that describes an outcome to examine
+#' @param data_dictionary - Optional. A data.frame describing covariates. This is passed
+#' on to DT:data.table() so it can be easily searched
+#'
 #'
 #' `explore_data` gives you a simple shiny app to explore data, The app is tailored to the
 #'  covariate types of the data.frame/data.table that you pass to it.
@@ -31,6 +34,10 @@
 #' if(interactive()){
 #'    burro::explore_data(diamonds, outcome_var="cut")
 #' }
+#'
+#'
+#'
+#' burro::explore_data(diamonds, )
 explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
   #needed to show spark histograms
   Sys.setlocale("LC_CTYPE", "Chinese")
@@ -60,6 +67,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
 
 
   }
+
+
 
   myDataFrame <- data.table::data.table(dataset)
 
@@ -195,6 +204,7 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
         mutate(gr = 1) %>%
         ggplot(aes_string(x=input$singleVar, fill=input$singleVar)) +
         geom_bar(aes(y = ..count..), color="black") +
+        #viridis::scale_fill_viridis(discrete=TRUE, option="magma") +
         geom_text(aes(group=gr, label = scales::percent(..prop..),
                       y= ..count.. ), stat= "count", vjust=-0.5) +
         theme(axis.text.x=element_text(angle=90))
@@ -208,7 +218,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
     output$visdat <- renderPlot({
 
       visdat::vis_dat(data.frame(dataOut())) +
-        theme(axis.text.x = element_text(size = 15, angle = 45))
+        theme(axis.text.x = element_text(size = 15, angle = 45)) #+
+        #viridis::scale_color_viridis(discrete=TRUE, option="magma")
     })
 
     output$summaryTable <- renderPrint({
@@ -256,7 +267,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
         ggplot(aes_string(x=input$condTab, fill=outcome_var)) +
         geom_bar(position="fill", color="black") + theme(text=element_text(size=20), axis.text.x = element_text(angle = 90)) +
         geom_text(data = percent_table, mapping = aes(y=n, label=ratio),
-                  position=position_fill(vjust=0.5))
+                  position=position_fill(vjust=0.5)) #+
+        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
 
       # group= !!sym(input$condTab)
     })
@@ -273,7 +285,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
       outPlot <- ggplot(dataOut(), aes_string(x=input$catVarBox,
                                               y=input$numericVarBox, fill=input$catVarBox)) +
         geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
-                                 element_text(angle=90))
+                                 element_text(angle=90)) #+
+        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
       outPlot
     })
 
@@ -292,6 +305,7 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
 
       ggplot(dataOut(), aes_string(x=input$x_var, y=input$y_var)) +
         naniar::geom_miss_point() + stat_smooth(method=lm, se=FALSE) +
+        #viridis::scale_color_viridis(discrete = TRUE, option="magma") +
         ggtitle(paste(input$x_var, "vs.", input$y_var, "correlation =", corval))
     })
 

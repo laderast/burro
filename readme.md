@@ -38,6 +38,8 @@ You can see the `burro` app for the `NHANES` data here: https://tladeras.shinyap
 
 ```
 library(burro)
+#make sure that NHANES package is installed
+library(NHANES)
 data(NHANES)
 
 ##specify outcome variable here

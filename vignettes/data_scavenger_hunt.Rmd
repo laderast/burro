@@ -48,8 +48,50 @@ data(NHANES)
 
 The research question will focus the exploration of the data by deciding an outcome. For the NHANES data, we want to focus on Depression. In the `NHANES` dataset, Depression is represented as the `Depressed` variable.
 
+So our research question is: "What are the potential covariates that are associated with Depression?"
+
 ## Data Scavenger Hunt Questions
 
 In designing the questions you will use in the scavenger hunt, you should do some prework and explore the dataset. This will inform your questions that you ask participants to look for.
 
-Try and map the complexity of the questions to the three menu items: 
+Try and map the complexity of the questions to the three menu items: overview, categorical, continuous.
+
+### Overview type Questions
+
+1. How many subjects are there in the data?
+1. How many categorical (also known as factor) variables are there in the data?
+1. How is the `Depressed` Variable defined?
+1. When was the data collected? 
+1. How many missing values are there for the `Depressed` variable?
+
+### Category type questions
+
+1. How many missing values are there for `Depressed`?
+1. How many categories does `LittleInterest` have? What do they represent?
+1. Is there an association of `LittleInterest` with `Depressed`?
+1. Is marijuana use associated with depression?
+
+### Continuous type questions
+
+1. What is the oldest person in the dataset? Any idea why?
+1. How is sleep defined in the dataset?
+1. How are sleep and marijuana use related in the dataset?
+1. What is the most frequent number of sleep hours in the data?
+1. Is there a relationship between Sleep hours and depression?
+1. Is there a relationship between Sleep hours and Age?
+
+## Answering the Questions
+
+Assign the questions to each group. Each group is responsible for the following:
+
+1. Where in the app did you find your result? 
+1. What variables did you look at?
+1. What are your findings? Is the data convincing?
+
+## Discussion
+
+Be flexible. You might not get through all of the questions. If a finding is interesting, discuss it more. Is there other evidence supporting a finding? Is it what you expected, or is it surprising?
+
+How was the data collected? How does the data collection affect the structure of the data?
+
+
