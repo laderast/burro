@@ -6,6 +6,9 @@
 #' @param outcome_var - a categorical variable that describes an outcome to examine
 #' @param data_dictionary - Optional. A data.frame describing covariates. This is passed
 #' on to DT:data.table() so it can be easily searched
+#' @param groups - Optional. A named character vector describing subsets of the population.
+#' For example, for the diamonds dataset, one subset might be color == "G", so define it
+#' as c(color_g="color == 'G'")
 #'
 #'
 #' `explore_data` gives you a simple shiny app to explore data, The app is tailored to the
@@ -35,10 +38,12 @@
 #'    burro::explore_data(diamonds, outcome_var="cut")
 #' }
 #'
-#'
-#'
-#' burro::explore_data(diamonds, )
-explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
+#' covars <- c("carat", "cut", "clarity", "depth")
+#' groups_in_data = c(color_g="color=='G'", cut_ide="cut=='Ide'")
+#' burro::explore_data(diamonds, covariates=covars, outcome_var= "cut",
+#' groups="groups_in_data")
+explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL,
+                         groups=NULL) {
   #needed to show spark histograms
   Sys.setlocale("LC_CTYPE", "Chinese")
   dataset_name <- deparse(substitute(dataset))
