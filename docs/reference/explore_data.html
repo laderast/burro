@@ -143,6 +143,13 @@ to include in the dataset</p></li>
       <th>outcome_var</th>
       <td><ul>
 <li><p>a categorical variable that describes an outcome to examine</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>data_dictionary</th>
+      <td><ul>
+<li><p>Optional. A data.frame describing covariates. This is passed
+on to DT:data.table() so it can be easily searched</p></li>
 </ul>
 
 <p><code>explore_data</code> gives you a simple shiny app to explore data, The app is tailored to the
@@ -165,7 +172,11 @@ build_shiny_app</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>diamonds</span>)
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()){
    <span class='kw pkg'>burro</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/burro/topics/explore_data'>explore_data</a></span>(<span class='no'>diamonds</span>, <span class='kw'>outcome_var</span><span class='kw'>=</span><span class='st'>"cut"</span>)
-}</div></pre>
+}
+
+
+
+<span class='co'>#need another example here</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

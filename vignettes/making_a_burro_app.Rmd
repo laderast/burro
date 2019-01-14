@@ -89,6 +89,6 @@ Once all that is setup, you can hit the "Publish" button or use `deployApp()` to
 
 ## 7. Send your URL out and have a data scavenger hunt!
 
-Your `burro` app is now ready to share at your url. Send it out and have a data scavenger hunt!
+Your `burro` app is now ready to share at your url. Send it out and have a [data scavenger hunt]()!
 
 

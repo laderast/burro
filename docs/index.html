@@ -110,18 +110,22 @@ devtools::install_github("laderast/burro")</code></pre>
 <p>Here we make a <code>burro</code> app using the <code>explore_data</code> option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (<code>Depressed</code>, the number of depressive episodes).</p>
 <p>You can see the <code>burro</code> app for the <code>NHANES</code> data here: <a href="https://tladeras.shinyapps.io/nhanes_explore/" class="uri">https://tladeras.shinyapps.io/nhanes_explore/</a></p>
 <pre><code>library(burro)
+#make sure that NHANES package is installed
+library(NHANES)
 data(NHANES)
 
+data_dict &lt;- readr::read_csv(system.file("nhanes/data_dictionary.csv", package="burro"))
+
 ##specify outcome variable here
-outcome_var &lt;- c("Depressed")
+outcome &lt;- c("Depressed")
 ## specify covariates here (including outcome variable)
-covariates &lt;- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
+covars &lt;- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
                 "BMI", "HHIncome", "Education",
                 "BMI_WHO", "BPSysAve", "TotChol", "Depressed", "LittleInterest",
                 "SleepHrsNight", "SleepTrouble", "TVHrsDay", "AlcoholDay",
                 "Marijuana", "RegularMarij", "HardDrugs")
                 
-explore_data(NHANES, covariates, outcome_var)</code></pre>
+explore_data(dataset=NHANES, covariates=covars, data_dictionary=data_dict, outcome_var=outcome)</code></pre>
 </div>
 <div id="running-burro-on-biopics-data-from-fivethirtyeight" class="section level2">
 <h2 class="hasAnchor">
@@ -141,7 +145,7 @@ explore_data(biopics, outcome_var = "subject_sex")
 </h2>
 <pre class="{r}"><code>library(ggplot)
 data(diamonds)
-burro::explore_data(diamonds, outcome_var="Cut")</code></pre>
+burro::explore_data(diamonds, outcome_var="cut")</code></pre>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">

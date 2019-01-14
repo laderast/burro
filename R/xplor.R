@@ -37,7 +37,7 @@
 #'
 #'
 #'
-#' burro::explore_data(diamonds, )
+#' #need another example here
 explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
   #needed to show spark histograms
   Sys.setlocale("LC_CTYPE", "Chinese")
@@ -67,7 +67,6 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
 
 
   }
-
 
 
   myDataFrame <- data.table::data.table(dataset)
@@ -121,8 +120,8 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
                        #          )
 
                        tabPanel("Data Dictionary",
-                                tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
-                                fluidRow(dataTableOutput("data_dictionary"))
+                                #tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
+                                fluidRow(dataTableOutput("data_dict"))
                        )
 
                 )
@@ -290,9 +289,15 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
       outPlot
     })
 
-#    output$data_dictionary <- renderDataTable(
-#      datatable(data_dictionary, options=list(pageLength=20))
-#    )
+   output$data_dict <- renderDataTable({
+     print(data_dictionary)
+
+     if(is.null(data_dictionary)){
+          return(NULL)
+     }
+
+      DT::datatable(data_dictionary, options=list(pageLength=20))
+    })
 
     output$corr_plot <- renderPlot({
 
@@ -377,7 +382,8 @@ build_shiny_app <- function(dataset, covariates, outcome_var) {
 
   #build the burro app and run it
   app <- burro::explore_data(dataset, covars, outcome_var)
-  shiny::runApp(app)"
+  app_out <- shiny::runApp(app)
+  app_out"
 
   out_string <- glue(out_app_string)
 

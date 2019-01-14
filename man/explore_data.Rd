@@ -19,6 +19,11 @@ to include in the dataset
 
 \item{outcome_var}{\itemize{
 \item a categorical variable that describes an outcome to examine
+}}
+
+\item{data_dictionary}{\itemize{
+\item Optional. A data.frame describing covariates. This is passed
+on to DT:data.table() so it can be easily searched
 }
 
 \code{explore_data} gives you a simple shiny app to explore data, The app is tailored to the
@@ -43,4 +48,8 @@ data(diamonds)
 if(interactive()){
    burro::explore_data(diamonds, outcome_var="cut")
 }
+
+
+
+#need another example here
 }

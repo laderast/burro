@@ -42,16 +42,18 @@ library(burro)
 library(NHANES)
 data(NHANES)
 
+data_dict <- readr::read_csv(system.file("nhanes/data_dictionary.csv", package="burro"))
+
 ##specify outcome variable here
-outcome_var <- c("Depressed")
+outcome <- c("Depressed")
 ## specify covariates here (including outcome variable)
-covariates <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
+covars <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
                 "BMI", "HHIncome", "Education",
                 "BMI_WHO", "BPSysAve", "TotChol", "Depressed", "LittleInterest",
                 "SleepHrsNight", "SleepTrouble", "TVHrsDay", "AlcoholDay",
                 "Marijuana", "RegularMarij", "HardDrugs")
                 
-explore_data(NHANES, covariates, outcome_var)
+explore_data(dataset=NHANES, covariates=covars, data_dictionary=data_dict, outcome_var=outcome)
 ```
 
 ## Running `burro` on `biopics` data from `fivethirtyeight`
@@ -73,7 +75,7 @@ explore_data(biopics, outcome_var = "subject_sex")
 ```{r}
 library(ggplot)
 data(diamonds)
-burro::explore_data(diamonds, outcome_var="Cut")
+burro::explore_data(diamonds, outcome_var="cut")
 ```
 
 ## Acknowledgements

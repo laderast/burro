@@ -20,7 +20,8 @@ Imports:
     glue,
     usethis,
     here,
-    viridis
+    viridis,
+    DT
 Depends: 
     shiny
 Roxygen: list(markdown = TRUE)
