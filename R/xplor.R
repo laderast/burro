@@ -316,6 +316,11 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
 
   }
 
+  if(getOption("app_list")==TRUE){
+
+    return(list(ui=ui, server=server))
+  }
+
   shinyApp(ui = ui, server = server)
 
 }
@@ -373,15 +378,20 @@ build_shiny_app <- function(dataset, covariates, outcome_var) {
   out_app_string <- "library(burro)
   library(shiny)
   library(here)
+  options(app_list=TRUE)
 
-  dataset <- readRDS(here('data','dataset.rds'))
+  {folder_name} <- readRDS(here('data','dataset.rds'))
     outcome_var <- '{outcome_var}'
 
   #edit your covariates here
   covars <- {covar_string}
 
   #build the burro app and run it
-  app <- burro::explore_data(dataset, covars, outcome_var)
+  app_list <- burro::explore_data({folder_name}, covars, outcome_var)
+  ui <- app_list[['ui']]
+  server <- app_list[['server']]
+
+  app <- shiny::shinyApp(ui, server)
   app"
 
   out_string <- glue(out_app_string)
