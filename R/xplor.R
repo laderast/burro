@@ -382,8 +382,7 @@ build_shiny_app <- function(dataset, covariates, outcome_var) {
 
   #build the burro app and run it
   app <- burro::explore_data(dataset, covars, outcome_var)
-  app_out <- shiny::runApp(app)
-  app_out"
+  app"
 
   out_string <- glue(out_app_string)
 

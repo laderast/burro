@@ -73,7 +73,7 @@ explore_data(biopics, outcome_var = "subject_sex")
 ## Run `burro` on `diamonds`
 
 ```{r}
-library(ggplot)
+library(ggplot2)
 data(diamonds)
 burro::explore_data(diamonds, outcome_var="cut")
 ```
