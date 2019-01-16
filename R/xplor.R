@@ -347,9 +347,13 @@ sanitize_data_frame <- function(dataset, outcome_var){
 
 #' Make a shiny app from a dataset
 #'
-#' @param dataset - data.frame or data.table of data
+#' @param dataset - data.frame or data.table of data. This will get saved into `data/dataset.rds` for the app.
 #' @param covariates - character vector of covariates, corresponding to the column names of dataset
 #' @param outcome_var - character of variable name in dataset correpsonding to the outcome of interest
+#' @param data_dictionary - optional; a data frame that describes the variables in the dataset.
+#'
+#' This function allows you to build a shiny app for a dataset. For more info, please see the
+#' "Making a Burro App" vignette.
 #'
 #' @return shiny app in a folder
 #' @export

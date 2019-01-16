@@ -128,7 +128,7 @@
     <tr>
       <th>dataset</th>
       <td><ul>
-<li><p>data.frame or data.table of data</p></li>
+<li><p>data.frame or data.table of data. This will get saved into <code>data/dataset.rds</code> for the app.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -142,6 +142,15 @@
       <td><ul>
 <li><p>character of variable name in dataset correpsonding to the outcome of interest</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>data_dictionary</th>
+      <td><ul>
+<li><p>optional; a data frame that describes the variables in the dataset.</p></li>
+</ul>
+
+<p>This function allows you to build a shiny app for a dataset. For more info, please see the
+"Making a Burro App" vignette.</p></td>
     </tr>
     </table>
     

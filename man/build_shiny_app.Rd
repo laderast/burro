@@ -8,7 +8,7 @@ build_shiny_app(dataset, covariates, outcome_var)
 }
 \arguments{
 \item{dataset}{\itemize{
-\item data.frame or data.table of data
+\item data.frame or data.table of data. This will get saved into \code{data/dataset.rds} for the app.
 }}
 
 \item{covariates}{\itemize{
@@ -18,6 +18,13 @@ build_shiny_app(dataset, covariates, outcome_var)
 \item{outcome_var}{\itemize{
 \item character of variable name in dataset correpsonding to the outcome of interest
 }}
+
+\item{data_dictionary}{\itemize{
+\item optional; a data frame that describes the variables in the dataset.
+}
+
+This function allows you to build a shiny app for a dataset. For more info, please see the
+"Making a Burro App" vignette.}
 }
 \value{
 shiny app in a folder
