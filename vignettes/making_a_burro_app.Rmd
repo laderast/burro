@@ -9,6 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Note
+
+There is currently an issue with `visdat` and the Shiny app when deployed. The app is not showing the `visdat  summary.  I'm trying to debug this at the moment and hopefully a fix will be ready soon.
+
 ## Let's make an app!
 
 Excited to make an app to explore data together? You've come to the right place. 
@@ -85,7 +89,7 @@ Open the `app.R` file and hit the `Run App` button. Your app should pop up. Try 
 
 Your `burro` project is now ready to be deployed to a Shiny Server! We'll focus on [Shinyapps.io](http://shinyapps.io) because it's free. You'll need to follow the directions here: https://docs.rstudio.com/shinyapps.io/getting-started.html (signing up, installing the `rsconnect` package, setting it up) to get started. 
 
-Once all that is setup, you can hit the "Publish" button or use `deployApp()` to publish it to your `Shinyapps.io` account. 
+Once all that is setup, you can hit the "Publish" button or use `rsconnect::deployApp()` to publish it to your `Shinyapps.io` account. 
 
 ## 7. Send your URL out and have a data scavenger hunt!
 

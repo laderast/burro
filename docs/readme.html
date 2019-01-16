@@ -120,8 +120,8 @@
 <div id="why-burrow-into-your-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#why-burrow-into-your-data" class="anchor"></a>Why <code>burro</code>(w) into your data?</h2>
-<p>Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and analysis. <code>burro</code> attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be shared via <code>shinyapps.io</code> or other Shiny hosts. You can see an example here: <a href="https://tladeras.shinyapps.io/nhanes_explore/" class="uri">https://tladeras.shinyapps.io/nhanes_explore/</a></p>
-<p>We use <code>burro</code> as an introductory tool for EDA by using it in “data scavenger hunts”, where groups of students are given specific questions to answer about the data, and then have to show their fellow students the answer and how the discovered it. Looking at the data together is vital to building understanding of the data together.</p>
+<p>Exploratory Data Analysis (EDA) is highly visual and can be a motivating entry point into data science and analysis. <code>burro</code> attempts to make EDA accessible to a larger audience by exposing datasets as a simple Shiny App that can be <a href="https://laderast.github.io/burro/articles/making_a_burro_app.html">shared via <code>shinyapps.io</code> or other Shiny hosts</a>. You can see an example here: <a href="https://tladeras.shinyapps.io/nhanes_explore/" class="uri">https://tladeras.shinyapps.io/nhanes_explore/</a></p>
+<p>We use <code>burro</code> as an introductory tool for EDA by using it in “<a href="https://laderast.github.io/burro/articles/data_scavenger_hunt.html">data scavenger hunts</a>”, where groups of students are given specific questions to answer about the data, and then have to show their fellow students the answer and how the discovered it. Looking at the data together is vital to building understanding of the data together.</p>
 <p>By concentrating on the data visualization first, <code>burro</code> apps let us have conversations about the data, and hopefully motivate students to learn more tools of EDA such as <code>ggplot</code>, <code>visdat</code>, and <code>skimr</code>.</p>
 </div>
 <div id="installing-burro" class="section level2">
@@ -142,7 +142,7 @@ devtools::install_github("laderast/burro")</code></pre>
 <div id="running-burro-on-nhanes-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-burro-on-nhanes-data" class="anchor"></a>Running <code>burro</code> on <code>NHANES</code> Data</h2>
-<p><img src="man/figures/nhanes.png" alt="burro app for NHANES"></p>
+<p><img src="man/figures/categorical.gif" alt="burro app for NHANES"></p>
 <p>Here we make a <code>burro</code> app using the <code>explore_data</code> option for the NHANES (National Health and Nutrition Examination Survey) data. We specify our covariates, and our outcome of interest (<code>Depressed</code>, the number of depressive episodes).</p>
 <p>You can see the <code>burro</code> app for the <code>NHANES</code> data here: <a href="https://tladeras.shinyapps.io/nhanes_explore/" class="uri">https://tladeras.shinyapps.io/nhanes_explore/</a></p>
 <pre><code>library(burro)
@@ -179,7 +179,7 @@ explore_data(biopics, outcome_var = "subject_sex")
 <h2 class="hasAnchor">
 <a href="#run-burro-on-diamonds" class="anchor"></a>Run <code>burro</code> on <code>diamonds</code>
 </h2>
-<pre class="{r}"><code>library(ggplot)
+<pre class="{r}"><code>library(ggplot2)
 data(diamonds)
 burro::explore_data(diamonds, outcome_var="cut")</code></pre>
 </div>
