@@ -316,7 +316,9 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
 
   }
 
-  if(getOption("app_list")==TRUE){
+  app_list <- getOption("app_list")
+
+  if(!is.null(app_list) && getOption("app_list")==TRUE){
 
     return(list(ui=ui, server=server))
   }
