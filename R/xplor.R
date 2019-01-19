@@ -370,7 +370,7 @@ sanitize_data_frame <- function(dataset, outcome_var){
 #' burro::build_shiny_app(dataset=diamonds,
 #' covariates=covars, outcome_var="cut")
 #' }
-build_shiny_app <- function(dataset, covariates, outcome_var) {
+build_shiny_app <- function(dataset, covariates, outcome_var, data_dictionary=NULL) {
 
   out_covar_string <- c("c(\'{outvar}\')")
   outvar <- glue_collapse(covariates, sep="\',\'")
@@ -378,22 +378,41 @@ build_shiny_app <- function(dataset, covariates, outcome_var) {
   covar_string <- glue(out_covar_string)
   folder_name <- deparse(substitute(dataset))
 
+
   dir.create(here::here("data"), showWarnings = FALSE)
   saveRDS(dataset, file=here("data", "dataset.rds"))
+
+
+  if(!is.null(data_dictionary)){
+      saveRDS(data_dictionary, file=here("data", "data_dictionary.rds"))
+  }
+
 
   out_app_string <- "library(burro)
   library(shiny)
   library(here)
+  #set option so explore_data returns a list instead of a shinyApp()
+  #object
   options(app_list=TRUE)
 
   {folder_name} <- readRDS(here('data','dataset.rds'))
     outcome_var <- '{outcome_var}'
 
+  data_dict <- NULL
+
+  data_dict_path <- here('data', 'data_dictionary.rds')
+  if(file.exists(data_dict_path)) {
+      data_dict <- readRDS(data_dict_path)
+  }
+
   #edit your covariates here
   covars <- {covar_string}
 
   #build the burro app and run it
-  app_list <- burro::explore_data({folder_name}, covars, outcome_var)
+  app_list <- burro::explore_data(dataset={folder_name},
+        covariates=covars, outcome_var=outcome_var,
+        data_dictionary=data_dict)
+
   ui <- app_list[['ui']]
   server <- app_list[['server']]
 
