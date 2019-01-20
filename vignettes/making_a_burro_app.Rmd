@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Note
 
-There is currently an issue with `visdat` and the Shiny app when deployed. The app is not showing the `visdat  summary.  I'm trying to debug this at the moment and hopefully a fix will be ready soon.
+There is currently an issue with `visdat` and the Shiny app when deployed. The app is not showing the `visdat  summary when given a very large dataset. This apparently has to with the memory available on the Shiny server. For this reason, try to subset the data in the app to be around 10,000 rows or less, unless you have more memory.
 
 ## Let's make an app!
 
@@ -31,15 +31,23 @@ Excited to make an app to explore data together? You've come to the right place.
 
 ## 1. Make a New Project
 
-In RStudio, make a new project by going to File >> New Project and Choose "New Folder". Name the folder what you want your app to be named.
+In RStudio, make a new project by going to **File >> New Project** and Choose the "New Folder" option. 
+
+![](../man/figures/new-project1.png)
+
+![](../man/figures/new-project2.png)
 
 ```{r}
 library(burro)
+library(readxl)
 ```
 
-Let's name our project "diamonds". 
+Name the folder what you want your app to be named. Let's name our project "diamonds". 
 
-## 2. Load in Your Data
+![](../man/figures/new-project3.png)
+
+
+## 2. Load in Your Data (and data dictionary)
 
 We're going to use the `diamonds` dataset from the `ggplot2` package. In the console, type the following:
 
@@ -49,25 +57,27 @@ data(diamonds)
 head(diamonds)
 ```
 
-## 3. Choose your covariates
+## 3. Choose your variables
 
-Your dataset may have too many covariates. Here's your chance to whittle them down.
+Your dataset may have variables (or covariates) that you might want to remove from the app. Here's your chance to whittle them down, by selecting the covariates that you want to include. 
+
+Here are all of the variables in the `diamonds` dataset. 
 
 ```{r}
 colnames(diamonds)
 ```
 
-We're going to specify our covariates as 
+We're going to specify our variables as 
 
 ```{r}
 covars <- c("carat", "cut", "color", "clarity", "depth", "table", "price")
 ```
 
-## 4. Choose your outcome
+## 4. Choose your outcome variable
 
-You'll now need to choose your outcome variable, which currently needs to be a `factor` (categorical) variable. All of the visualizations in `burro` are in terms of this outcome. 
+You'll now need to choose your *outcome variable*, which currently needs to be a `factor` (categorical) variable. A number of visualizations in `burro` are in terms of this outcome. 
 
-We're going to focus on the `cut` type of the diamond.
+We're going to focus on the `cut` type of the diamond as our outcome.
 
 ```{r}
 outcome <- "cut"
@@ -75,9 +85,10 @@ outcome <- "cut"
 
 ## 5. Build your app!
 
-With everything specified, we can now build our app in our current project.
+With everything specified, we can now build our app in our current project. `diamonds` is a fairly large dataset (over 50,000 rows) and we need to filter it down with the `dplyr` command `sample_n`, to limit it to 10,000 rows. This ensures that the `burro` app will run on limited memory servers such as the ones available to default `shinyapps.io` accounts.
 
 ```{r eval = FALSE}
+diamonds <- diamonds %>% dplyr::sample_n(10000)
 build_shiny_app(dataset = diamonds, covariates=covars, outcome_var=outcome)
 ```
 

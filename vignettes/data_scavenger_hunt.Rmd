@@ -44,6 +44,13 @@ data(NHANES)
 ?NHANES
 ```
 
+## Quick Intro Session
+
+Divide the students up into groups of around 3-5 people. Each of the students should have a laptop, or they can share. 
+
+Give them a quick guided tour of the app, and give them a handout that maps types of questions to the different tabs/panels of the app.
+
+
 ## Have a Research Question
 
 The research question will focus the exploration of the data by deciding an outcome. For the NHANES data, we want to focus on Depression. In the `NHANES` dataset, Depression is represented as the `Depressed` variable.
@@ -82,11 +89,29 @@ Try and map the complexity of the questions to the three menu items: overview, c
 
 ## Answering the Questions
 
-Assign the questions to each group. Each group is responsible for the following:
+Assign the questions to each group. Each group is responsible for talking the following:
 
-1. Where in the app did you find your result? 
-1. What variables did you look at?
-1. What are your findings? Is the data convincing?
+1. Where in the app did you answer your question? 
+1. What variables did you look at to answer your question?
+1. What are your findings? Does the data conclusively answer your question?
+
+### Example answer for Categorical Question 1
+
+Overall question: How many missing values are there for depressed?
+
+1. *Where in the app did you answer your question?* 
+
+Answer: Under Overview >> Tabluar summary of data, we can see the number of missing values for the `Depressed` variable.
+
+![](../man/figures/cat-question1.png)
+
+2. *What variables did you look at to answer your question?* 
+
+Answer: the `Depressed` variable.
+
+3. *What are your findings?*
+
+Answer: there are 3327 patients with missing information.
 
 ## Discussion
 

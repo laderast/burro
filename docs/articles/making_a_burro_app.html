@@ -88,7 +88,7 @@
 <div id="note" class="section level2">
 <h2 class="hasAnchor">
 <a href="#note" class="anchor"></a>Note</h2>
-<p>There is currently an issue with <code>visdat</code> and the Shiny app when deployed. The app is not showing the `visdat summary. I’m trying to debug this at the moment and hopefully a fix will be ready soon.</p>
+<p>There is currently an issue with <code>visdat</code> and the Shiny app when deployed. The app is not showing the `visdat summary when given a very large dataset. This apparently has to with the memory available on the Shiny server. For this reason, try to subset the data in the app to be around 10,000 rows or less, unless you have more memory.</p>
 </div>
 <div id="lets-make-an-app" class="section level2">
 <h2 class="hasAnchor">
@@ -111,20 +111,24 @@
 <div id="make-a-new-project" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-new-project" class="anchor"></a>1. Make a New Project</h2>
-<p>In RStudio, make a new project by going to File &gt;&gt; New Project and Choose “New Folder”. Name the folder what you want your app to be named.</p>
+<p>In RStudio, make a new project by going to <strong>File &gt;&gt; New Project</strong> and Choose the “New Folder” option.</p>
+<p><img src="../man/figures/new-project1.png"></p>
+<p><img src="../man/figures/new-project2.png"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(burro)</a></code></pre></div>
 <pre><code>## Loading required package: shiny</code></pre>
 <pre><code>## Warning: package 'shiny' was built under R version 3.5.2</code></pre>
-<p>Let’s name our project “diamonds”.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(readxl)</a></code></pre></div>
+<p>Name the folder what you want your app to be named. Let’s name our project “diamonds”.</p>
+<p><img src="../man/figures/new-project3.png"></p>
 </div>
-<div id="load-in-your-data" class="section level2">
+<div id="load-in-your-data-and-data-dictionary" class="section level2">
 <h2 class="hasAnchor">
-<a href="#load-in-your-data" class="anchor"></a>2. Load in Your Data</h2>
+<a href="#load-in-your-data-and-data-dictionary" class="anchor"></a>2. Load in Your Data (and data dictionary)</h2>
 <p>We’re going to use the <code>diamonds</code> dataset from the <code>ggplot2</code> package. In the console, type the following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a></code></pre></div>
 <pre><code>## Warning: package 'ggplot2' was built under R version 3.5.2</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(diamonds)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(diamonds)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(diamonds)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(diamonds)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 10
 ##   carat cut       color clarity depth table price     x     y     z
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -135,28 +139,30 @@
 ## 5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
 ## 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
 </div>
-<div id="choose-your-covariates" class="section level2">
+<div id="choose-your-variables" class="section level2">
 <h2 class="hasAnchor">
-<a href="#choose-your-covariates" class="anchor"></a>3. Choose your covariates</h2>
-<p>Your dataset may have too many covariates. Here’s your chance to whittle them down.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(diamonds)</a></code></pre></div>
+<a href="#choose-your-variables" class="anchor"></a>3. Choose your variables</h2>
+<p>Your dataset may have variables (or covariates) that you might want to remove from the app. Here’s your chance to whittle them down, by selecting the covariates that you want to include.</p>
+<p>Here are all of the variables in the <code>diamonds</code> dataset.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(diamonds)</a></code></pre></div>
 <pre><code>##  [1] "carat"   "cut"     "color"   "clarity" "depth"   "table"   "price"  
 ##  [8] "x"       "y"       "z"</code></pre>
-<p>We’re going to specify our covariates as</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">covars &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"carat"</span>, <span class="st">"cut"</span>, <span class="st">"color"</span>, <span class="st">"clarity"</span>, <span class="st">"depth"</span>, <span class="st">"table"</span>, <span class="st">"price"</span>)</a></code></pre></div>
+<p>We’re going to specify our variables as</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">covars &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"carat"</span>, <span class="st">"cut"</span>, <span class="st">"color"</span>, <span class="st">"clarity"</span>, <span class="st">"depth"</span>, <span class="st">"table"</span>, <span class="st">"price"</span>)</a></code></pre></div>
 </div>
-<div id="choose-your-outcome" class="section level2">
+<div id="choose-your-outcome-variable" class="section level2">
 <h2 class="hasAnchor">
-<a href="#choose-your-outcome" class="anchor"></a>4. Choose your outcome</h2>
-<p>You’ll now need to choose your outcome variable, which currently needs to be a <code>factor</code> (categorical) variable. All of the visualizations in <code>burro</code> are in terms of this outcome.</p>
-<p>We’re going to focus on the <code>cut</code> type of the diamond.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">outcome &lt;-<span class="st"> "cut"</span></a></code></pre></div>
+<a href="#choose-your-outcome-variable" class="anchor"></a>4. Choose your outcome variable</h2>
+<p>You’ll now need to choose your <em>outcome variable</em>, which currently needs to be a <code>factor</code> (categorical) variable. A number of visualizations in <code>burro</code> are in terms of this outcome.</p>
+<p>We’re going to focus on the <code>cut</code> type of the diamond as our outcome.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">outcome &lt;-<span class="st"> "cut"</span></a></code></pre></div>
 </div>
 <div id="build-your-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#build-your-app" class="anchor"></a>5. Build your app!</h2>
-<p>With everything specified, we can now build our app in our current project.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/build_shiny_app.html">build_shiny_app</a></span>(<span class="dt">dataset =</span> diamonds, <span class="dt">covariates=</span>covars, <span class="dt">outcome_var=</span>outcome)</a></code></pre></div>
+<p>With everything specified, we can now build our app in our current project. <code>diamonds</code> is a fairly large dataset (over 50,000 rows) and we need to filter it down with the <code>dplyr</code> command <code>sample_n</code>, to limit it to 10,000 rows. This ensures that the <code>burro</code> app will run on limited memory servers such as the ones available to default <code>shinyapps.io</code> accounts.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/sample">sample_n</a></span>(<span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="../reference/build_shiny_app.html">build_shiny_app</a></span>(<span class="dt">dataset =</span> diamonds, <span class="dt">covariates=</span>covars, <span class="dt">outcome_var=</span>outcome)</a></code></pre></div>
 <p>Check to make sure that there’s an <code>app.R</code> in your main project folder and there is a <code>dataset.rds</code> file in your <code>data</code> folder inside your project.</p>
 <p>Open the <code>app.R</code> file and hit the <code>Run App</code> button. Your app should pop up. Try it out!</p>
 </div>
@@ -183,9 +189,9 @@
       <li><a href="#lets-make-an-app">Let’s make an app!</a></li>
       <li><a href="#steps-in-making-a-burro-app">Steps in Making a <code>burro</code> App</a></li>
       <li><a href="#make-a-new-project">1. Make a New Project</a></li>
-      <li><a href="#load-in-your-data">2. Load in Your Data</a></li>
-      <li><a href="#choose-your-covariates">3. Choose your covariates</a></li>
-      <li><a href="#choose-your-outcome">4. Choose your outcome</a></li>
+      <li><a href="#load-in-your-data-and-data-dictionary">2. Load in Your Data (and data dictionary)</a></li>
+      <li><a href="#choose-your-variables">3. Choose your variables</a></li>
+      <li><a href="#choose-your-outcome-variable">4. Choose your outcome variable</a></li>
       <li><a href="#build-your-app">5. Build your app!</a></li>
       <li><a href="#deploy-to-shinyapps-io">6. Deploy to <code>shinyapps.io</code></a></li>
       <li><a href="#send-your-url-out-and-have-a-data-scavenger-hunt">7. Send your URL out and have a data scavenger hunt!</a></li>
