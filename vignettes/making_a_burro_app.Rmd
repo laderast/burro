@@ -96,6 +96,8 @@ Check to make sure that there's an `app.R` in your main project folder and there
 
 Open the `app.R` file and hit the `Run App` button. Your app should pop up. Try it out!
 
+![](../man/figures/run-app.png)
+
 ## 6. Deploy to `shinyapps.io`
 
 Your `burro` project is now ready to be deployed to a Shiny Server! We'll focus on [Shinyapps.io](http://shinyapps.io) because it's free. You'll need to follow the directions here: https://docs.rstudio.com/shinyapps.io/getting-started.html (signing up, installing the `rsconnect` package, setting it up) to get started. 
@@ -104,6 +106,6 @@ Once all that is setup, you can hit the "Publish" button or use `rsconnect::depl
 
 ## 7. Send your URL out and have a data scavenger hunt!
 
-Your `burro` app is now ready to share at your url. Send it out and have a [data scavenger hunt]()!
+Your `burro` app is now ready to share at your url. Send it out and have a [data scavenger hunt](https://laderast.github.io/burro/articles/data_scavenger_hunt.html)!
 
 

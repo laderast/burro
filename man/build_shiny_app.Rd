@@ -4,7 +4,7 @@
 \alias{build_shiny_app}
 \title{Make a shiny app from a dataset}
 \usage{
-build_shiny_app(dataset, covariates, outcome_var)
+build_shiny_app(dataset, covariates, outcome_var, data_dictionary = NULL)
 }
 \arguments{
 \item{dataset}{\itemize{
