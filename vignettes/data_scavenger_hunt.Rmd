@@ -30,7 +30,7 @@ This is the most important part!
 
 Check out [Building a burro app](https://laderast.github.io/burro/articles/making_a_burro_app.html) on how to build your app.
 
-We're going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset. 
+We're going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset. Check out the burro app here: http://tladeras.shinyapps.io/nhanes_explore
 
 ```{r eval=FALSE}
 install.packages("NHANES")
