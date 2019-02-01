@@ -1,4 +1,4 @@
-# `burro`: A Shiny Data Explorer for Teaching Exploratory Data Analysis
+# `burro`: Ted's Shiny Data Explorer for Teaching Exploratory Data Analysis
 
 # <img src="man/figures/burro3.png" align="right" />
 
