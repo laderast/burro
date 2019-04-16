@@ -38,16 +38,12 @@
 #'
 #'
 #' #need another example here
-explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary = NULL) {
+explore_data <- function(dataset, covariates=NULL,
+                         outcome_var=NULL, data_dictionary=NULL) {
   #needed to show spark histograms
   Sys.setlocale("LC_CTYPE", "Chinese")
   dataset_name <- deparse(substitute(dataset))
 
-
-  # need to check column names and outcome var names in data
-  if(!outcome_var %in% colnames(dataset)){
-    stop("Your outcome variable is not the dataset - try using colnames(data) to select it")
-  }
 
   if(!is.null(covariates)) {
 
@@ -75,11 +71,33 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
     myDataFrame <- myDataFrame[,covariates,with=FALSE]
   }
 
-  myDataFrame <- burro:::sanitize_data_frame(myDataFrame, outcome_var)
-
-  remove_categories <- outcome_var
   categoricalVars <- sort(names(burro:::get_category_variables(myDataFrame)))
-  cat_no_outcome <- setdiff(categoricalVars, remove_categories)
+  outcome_var <- outcome_var[outcome_var %in% categoricalVars]
+
+  #todo - just show two way dropdown if outcome_var = NULL
+  if(is.null(outcome_var)){
+    outcome_var <- categoricalVars
+  }
+
+  in_dataset <- length(which(outcome_var %in% colnames(dataset)))
+
+  # need to check column names and outcome var names in data
+  if(in_dataset == 0){
+    stop("Your outcome variable is not the dataset - try using colnames(data) to select it")
+  }
+  if(in_dataset < length(outcome_var)){
+    warning("Some of your outcomes weren't in the dataset")
+  }
+
+  #myDataFrame <- burro:::sanitize_data_frame(myDataFrame, outcome_var)
+  remove_categories <- outcome_var
+
+  cat_no_outcome <- categoricalVars
+
+  if(length(outcome_var) != length(categoricalVars)){
+    cat_no_outcome <-
+      setdiff(categoricalVars, remove_categories)
+  }
 
   numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
 
@@ -118,6 +136,280 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
                        #                                  )
                        #
                        #          )
+
+                       tabPanel("Data Dictionary",
+                                #tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
+                                fluidRow(dataTableOutput("data_dict"))
+                       )
+
+                )
+        ),
+        tabItem("categorical",
+                tabBox(width=12,
+                       tabPanel("Single Category",
+                                selectInput(inputId = "singleVar",
+                                            "Select Categorical Variable",
+                                            choices = categoricalVars,
+                                            selected =categoricalVars[1]),
+                                plotOutput("singleTab")
+                       ),
+
+                       tabPanel("Category/Outcome",
+                                selectInput(inputId = "condTab", "Select Variable to Calculate Proportions",
+                                            choices=cat_no_outcome, selected=cat_no_outcome[1]),
+                                selectInput(inputId = "outcomeTab", "Select Outcome Variable",
+                                            choices=outcome_var, selected=outcome_var[1]),
+                                plotOutput("proportionBarplot")
+
+                       ),
+                       tabPanel("Crosstab Explorer",
+                                selectInput(inputId = "crossTab1", "Select Crosstab Variable (x)",
+                                            choices=categoricalVars, selected=categoricalVars[1]),
+                                selectInput(inputId = "crossTab2", "Select Crosstab Variable (y)",
+                                            choices=categoricalVars, selected=categoricalVars[1]),
+                                verbatimTextOutput("crossTab")
+                       ),
+
+                       tabPanel("Missing Data Explorer",
+                                selectInput(inputId = "missingVar", "Select Variable to Examine",
+                                            choices=categoricalVars, selected = categoricalVars[1]),
+                                plotOutput("missingTab")
+                       )
+                )),
+        tabItem("continuous",
+                tabBox(width=12,
+                       tabPanel("Histogram Explorer",
+                                fluidRow(column(width = 4,
+                                                selectInput(inputId = "numericVarHist",
+                                                            "Select Numeric Variable",
+                                                            choices = numericVars, selected=numericVars[1])),
+                                         column(width=4, sliderInput("bins", "Number of bins:", min = 1, max = 50,value = 30))),
+                                plotOutput("distPlot")
+                       ),
+                       tabPanel("Boxplot Explorer",
+                                fluidRow(column(width = 4, selectInput(inputId = "numericVarBox", "Select Numeric Variable",
+                                                                       choices = numericVars, selected=numericVars[1])),
+                                         column(width=4,selectInput(inputId = "catVarBox", "Select Category to Condition on",
+                                                                    choices = categoricalVars, selected=categoricalVars[1]))),
+                                plotOutput("boxPlot")
+                       ),
+                       tabPanel("Correlation Explorer",
+                                fluidRow(
+                                  column(width=4, selectInput("x_var", "Select Y Variable",
+                                                              choices=numericVars, selected = numericVars[1])),
+                                  column(width=4, selectInput("y_var", "Select Y Variable",
+                                                              choices=numericVars, selected = numericVars[2]))
+                                ),
+                                fluidRow(plotOutput("corr_plot"))
+                       ))
+        ))
+    )
+  )
+
+
+  server <- function(input, output, session) {
+
+    dataOut <- reactive({
+      #req(input$cohort)
+      myDataFrame #%>% filter_(cohortList[[input$cohort]])
+
+    })
+
+    output$singleTab <- renderPlot({
+
+      #dataOut()[,c(input$singleVar)] %>%
+      dataOut() %>%
+        #data.frame() %>%
+        mutate(gr = 1) %>%
+        ggplot(aes_string(x=input$singleVar, fill=input$singleVar)) +
+        geom_bar(aes(y = ..count..), color="black") +
+        viridis::scale_fill_viridis(discrete=TRUE, option="magma") +
+        geom_text(aes(group=gr, label = scales::percent(..prop..),
+                      y= ..count..), stat= "count", vjust=-0.5) +
+        theme(axis.text.x=element_text(angle=90))
+    })
+
+    # output$missing_clusters <- renderPlot({
+    #   visdat::vis_miss(data.frame(dataOut()), cluster = TRUE) +
+    #     theme(axis.text.x = element_text(size = 15, angle = 90))
+    # })
+
+    output$visdat <- renderPlot({
+
+      visdat::vis_dat(data.frame(dataOut())) +
+        theme(axis.text.x = element_text(size = 15, angle = 45)) +
+        viridis::scale_color_viridis(discrete=TRUE, option="magma")
+    })
+
+    output$summaryTable <- renderPrint({
+      skimr::skim(dataOut()) #%>% skimr::kable()
+    })
+
+    output$missingTab <- renderPlot({
+
+      var <- sym(input$missingVar)
+
+      dataOut() %>%
+        data.frame() %>%
+        naniar::gg_miss_fct(fct = !!var) +
+        theme(axis.text = element_text(size = 15))
+
+    })
+
+    output$crossTab <- renderPrint({
+
+      out <- dataOut()[,c(input$crossTab1, input$crossTab2), with=FALSE]
+      tab <- table(out, useNA = "ifany")
+      tab
+    })
+
+    proportionTable <- reactive({
+
+      out <- dataOut()[,c(input$condTab, input$outcomeTab), with=FALSE]
+      out
+    })
+
+    output$proportionTab <- renderPrint({
+      tab <- table(proportionTable(), useNA="ifany")
+      return(tab[,"Yes"]/(tab[,"No"] + tab[,"Yes"]))
+
+    })
+
+    output$proportionBarplot <- renderPlot({
+
+      print(input$condTab)
+
+      percent_table <- proportionTable() %>% data.frame() %>%
+        group_by(!!sym(input$condTab)) %>%
+        count(!!sym(input$outcomeTab)) %>%
+        mutate(ratio=scales::percent(n/sum(n)), ratio2 = n/sum(n))
+
+      #need to figure out how to calculate cumulative sum?
+      #https://stackoverflow.com/questions/43520318/how-to-use-percentage-as-label-in-stacked-bar-plot
+
+      proportionTable() %>%
+        ggplot(aes_string(x=input$condTab, fill=input$outcomeTab)) +
+        geom_bar(position="fill", color="black") +
+        theme(text=element_text(size=20), axis.text.x = element_text(angle = 90)) +
+        geom_label(data = percent_table, mapping = aes(y=ratio2, label=ratio), fill="white",
+                  position=position_fill(vjust=0.5)) +
+        viridis::scale_fill_viridis(discrete=TRUE, option="magma")
+
+      # group= !!sym(input$condTab)
+    })
+
+    output$distPlot <- renderPlot({
+
+      outPlot <- ggplot(dataOut(), aes_string(x=input$numericVarHist)) +
+        geom_histogram(bins=input$bins) + theme(text=element_text(size=20),
+                                                axis.text.x = element_text(angle=90))
+      outPlot
+    })
+
+    output$boxPlot <- renderPlot({
+      outPlot <- ggplot(dataOut(), aes_string(x=input$catVarBox,
+                                              y=input$numericVarBox, fill=input$catVarBox)) +
+        geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
+                                 element_text(angle=90)) #+
+        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
+      outPlot
+    })
+
+   output$data_dict <- renderDataTable({
+     print(data_dictionary)
+
+     if(is.null(data_dictionary)){
+          return(NULL)
+     }
+
+      DT::datatable(data_dictionary, options=list(pageLength=20))
+    })
+
+    output$corr_plot <- renderPlot({
+
+      mini_frame <- dataOut() %>% data.frame() %>% select(!!sym(input$x_var), !!sym(input$y_var)) %>%
+        tidyr::drop_na()
+      xcol <- mini_frame %>% pull(!!sym(input$x_var))
+      ycol <- mini_frame %>% pull(!!sym(input$y_var))
+
+      corval <- signif(cor(xcol, ycol), digits = 3)
+
+      ggplot(dataOut(), aes_string(x=input$x_var, y=input$y_var)) +
+        naniar::geom_miss_point() + stat_smooth(method=lm, se=FALSE) +
+        #viridis::scale_color_viridis(discrete = TRUE, option="magma") +
+        ggtitle(paste(input$x_var, "vs.", input$y_var, "correlation =", corval))
+    })
+
+  }
+
+  app_list <- getOption("app_list")
+
+  if(!is.null(app_list) && getOption("app_list")==TRUE){
+
+    return(list(ui=ui, server=server))
+  }
+
+  shinyApp(ui = ui, server = server)
+
+}
+
+
+sanitize_data_frame <- function(dataset, outcome_var){
+
+  myDataFrame <- dataset
+
+  remove_categories <- outcome_var
+  categoricalVars <- sort(names(burro:::get_category_variables(myDataFrame)))
+
+  numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
+  #numericVars <- setdiff(numericVars, remove_numeric)
+
+  myDataFrame <- myDataFrame[,c(numericVars, categoricalVars), with=FALSE]
+
+  myDataFrame
+
+}
+
+
+build_ui <- function(data_obj){
+
+  if("tbl" %in% class(data_obj)){
+    ui <- build_tibble_ui()
+  }
+  if("sf" %in% class(data_obj)){
+    ui <- build_sf_ui()
+  }
+  if("tsibble" %in% class(data_obj)){
+    ui <- build_ts_ui()
+  }
+}
+
+build_tibble_ui <- function(dataset_name, categoricalVars, numericVars){
+  ui <- dashboardPage(
+    header= dashboardHeader(
+      title = dataset_name
+    ),
+    sidebar=dashboardSidebar(
+      sidebarMenu(
+        menuItem("Overview", tabName = "overview", selected=TRUE),
+        menuItem("Categorical", tabName = "categorical"),
+        menuItem("Continuous", tabName = "continuous")),
+      shiny::br(),
+      tags$div(tags$a(href="http://github.com/laderast/burro", "Built with burro!"))
+    ),
+    body=  dashboardBody(
+      tabItems(
+        tabItem("overview",
+                tabBox(width = 12,
+                       tabPanel("Visual Summary of Data",
+                                tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
+                                fluidRow(column(12, offset=0, plotOutput("visdat")))
+                       ),
+                       tabPanel("Tabular Summary of Data",
+                                tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
+                                fluidRow(column(12, offset=0, verbatimTextOutput("summaryTable")
+                                )
+                                )),
 
                        tabPanel("Data Dictionary",
                                 #tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
@@ -186,162 +478,14 @@ explore_data <- function(dataset, covariates=NULL, outcome_var, data_dictionary 
     )
   )
 
+  return(ui)
+}
 
-  server <- function(input, output, session) {
-
-    dataOut <- reactive({
-      #req(input$cohort)
-      myDataFrame #%>% filter_(cohortList[[input$cohort]])
-
-    })
-
-    output$singleTab <- renderPlot({
-
-      #dataOut()[,c(input$singleVar)] %>%
-      dataOut() %>%
-        #data.frame() %>%
-        mutate(gr = 1) %>%
-        ggplot(aes_string(x=input$singleVar, fill=input$singleVar)) +
-        geom_bar(aes(y = ..count..), color="black") +
-        #viridis::scale_fill_viridis(discrete=TRUE, option="magma") +
-        geom_text(aes(group=gr, label = scales::percent(..prop..),
-                      y= ..count.. ), stat= "count", vjust=-0.5) +
-        theme(axis.text.x=element_text(angle=90))
-    })
-
-    # output$missing_clusters <- renderPlot({
-    #   visdat::vis_miss(data.frame(dataOut()), cluster = TRUE) +
-    #     theme(axis.text.x = element_text(size = 15, angle = 90))
-    # })
-
-    output$visdat <- renderPlot({
-
-      visdat::vis_dat(data.frame(dataOut())) +
-        theme(axis.text.x = element_text(size = 15, angle = 45)) #+
-        #viridis::scale_color_viridis(discrete=TRUE, option="magma")
-    })
-
-    output$summaryTable <- renderPrint({
-      skimr::skim(dataOut()) #%>% skimr::kable()
-    })
-
-    output$missingTab <- renderPlot({
-
-      var <- sym(input$missingVar)
-
-      dataOut() %>%
-        data.frame() %>%
-        naniar::gg_miss_fct(fct = !!var) +
-        theme(axis.text = element_text(size = 15))
-
-    })
-
-    output$crossTab <- renderPrint({
-
-      out <- dataOut()[,c(input$crossTab1, input$crossTab2), with=FALSE]
-      tab <- table(out, useNA = "ifany")
-      tab
-    })
-
-    proportionTable <- reactive({
-
-      out <- dataOut()[,c(input$condTab, outcome_var), with=FALSE]
-      out
-    })
-
-    output$proportionTab <- renderPrint({
-      tab <- table(proportionTable(), useNA="ifany")
-      return(tab[,"Yes"]/(tab[,"No"] + tab[,"Yes"]))
-
-    })
-
-    output$proportionBarplot <- renderPlot({
-
-      print(input$condTab)
-
-      percent_table <- proportionTable() %>% data.frame() %>% group_by(!!sym(input$condTab)) %>%
-        count(!!sym(outcome_var)) %>% mutate(ratio=scales::percent(n/sum(n)))
-
-      proportionTable() %>%
-        ggplot(aes_string(x=input$condTab, fill=outcome_var)) +
-        geom_bar(position="fill", color="black") + theme(text=element_text(size=20), axis.text.x = element_text(angle = 90)) +
-        geom_text(data = percent_table, mapping = aes(y=n, label=ratio),
-                  position=position_fill(vjust=0.5)) #+
-        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
-
-      # group= !!sym(input$condTab)
-    })
-
-    output$distPlot <- renderPlot({
-
-      outPlot <- ggplot(dataOut(), aes_string(x=input$numericVarHist)) +
-        geom_histogram(bins=input$bins) + theme(text=element_text(size=20),
-                                                axis.text.x = element_text(angle=90))
-      outPlot
-    })
-
-    output$boxPlot <- renderPlot({
-      outPlot <- ggplot(dataOut(), aes_string(x=input$catVarBox,
-                                              y=input$numericVarBox, fill=input$catVarBox)) +
-        geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
-                                 element_text(angle=90)) #+
-        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
-      outPlot
-    })
-
-   output$data_dict <- renderDataTable({
-     print(data_dictionary)
-
-     if(is.null(data_dictionary)){
-          return(NULL)
-     }
-
-      DT::datatable(data_dictionary, options=list(pageLength=20))
-    })
-
-    output$corr_plot <- renderPlot({
-
-      mini_frame <- dataOut() %>% data.frame() %>% select(!!sym(input$x_var), !!sym(input$y_var)) %>%
-        tidyr::drop_na()
-      xcol <- mini_frame %>% pull(!!sym(input$x_var))
-      ycol <- mini_frame %>% pull(!!sym(input$y_var))
-
-      corval <- signif(cor(xcol, ycol), digits = 3)
-
-      ggplot(dataOut(), aes_string(x=input$x_var, y=input$y_var)) +
-        naniar::geom_miss_point() + stat_smooth(method=lm, se=FALSE) +
-        #viridis::scale_color_viridis(discrete = TRUE, option="magma") +
-        ggtitle(paste(input$x_var, "vs.", input$y_var, "correlation =", corval))
-    })
-
-  }
-
-  app_list <- getOption("app_list")
-
-  if(!is.null(app_list) && getOption("app_list")==TRUE){
-
-    return(list(ui=ui, server=server))
-  }
-
-  shinyApp(ui = ui, server = server)
+build_sf_ui <- function(){
 
 }
 
-
-sanitize_data_frame <- function(dataset, outcome_var){
-
-  myDataFrame <- dataset
-
-  remove_categories <- outcome_var
-  categoricalVars <- sort(names(burro:::get_category_variables(myDataFrame)))
-  cat_no_outcome <- setdiff(categoricalVars, remove_categories)
-
-  numericVars <- sort(burro:::get_numeric_variables(myDataFrame))
-  #numericVars <- setdiff(numericVars, remove_numeric)
-
-  myDataFrame <- myDataFrame[,c(numericVars, categoricalVars), with=FALSE]
-
-  myDataFrame
+build_ts_ui <- function(){
 
 }
 

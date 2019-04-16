@@ -20,7 +20,7 @@ get_category_variables <- function(df) {
   characterVars <- names(varClass[varClass %in% c("character", "factor", "ordered")])
 
   #remove those character variables that aren't
-  char_list <- sapply(characterVars, function(x){
+  char_list <- lapply(characterVars, function(x){
     size_vec <- length(df[[x]])
     cate_vec <- length(unique(df[[x]]))
     ##This is a bit o a kludge - don't want to return categories which
@@ -32,6 +32,9 @@ get_category_variables <- function(df) {
     }
     return(out)
   })
+  char_list <- as.list(char_list)
+
+  names(char_list) <- characterVars
 
   ##remove null values from list
   char_list <- char_list[lapply(char_list,length)!=0]

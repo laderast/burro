@@ -1,0 +1,24 @@
+---
+title: "Preparing Data for Burro"
+author: "Ted Laderas"
+date: "February 28, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading Data into Burro
+
+
+# Use Case
+
+For teachers who wish to use `burro` in their classrooms who have identified a dataset. This tutorial assumes some basic familiarity with R. 
+
+0. Load dataset (using `readr`, `haven`, or `readxl`)
+1. Identify categorical variables and cast as `factor`
+2. Identify numeric variables
+3. (for time series): identify key and time fields
+4. Identify outcome variables
+

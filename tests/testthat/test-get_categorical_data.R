@@ -1,5 +1,13 @@
 context("test-get_categorical_data")
+source("R/helper.R")
+library(ggplot2)
+data(diamonds)
 
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+cats1 <- get_category_variables(iris)
+cats2 <- get_category_variables(diamonds)
+
+test_that("get category variables works", {
+  expect_equal(length(cats1), 1)
+  expect_equal(length(cats2), 3)
+  expect_equal(names(cats1), "Species")
 })
