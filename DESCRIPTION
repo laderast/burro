@@ -25,6 +25,7 @@ Imports:
     usethis,
     here,
     viridis,
+    forcats,
     DT
 Depends: 
     shiny

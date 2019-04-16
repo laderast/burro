@@ -277,14 +277,10 @@ explore_data <- function(dataset, covariates=NULL,
 
     output$proportionBarplot <- renderPlot({
 
-      per_tab <- percent_table(proportion_table = proportionTable(), condition_var = input$condTab,
-                    outcome_var = input$outcomeTab)
-
       #need to figure out how to calculate cumulative sum?
       #https://stackoverflow.com/questions/43520318/how-to-use-percentage-as-label-in-stacked-bar-plot
 
       percent_plot(proportion_table = proportionTable(),
-                   percent_table = per_tab,
                    outcome_var = input$outcomeTab,
                    condition_var = input$condTab)
 
