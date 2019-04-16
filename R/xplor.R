@@ -277,25 +277,17 @@ explore_data <- function(dataset, covariates=NULL,
 
     output$proportionBarplot <- renderPlot({
 
-      print(input$condTab)
-
-      percent_table <- proportionTable() %>% data.frame() %>%
-        group_by(!!sym(input$condTab)) %>%
-        count(!!sym(input$outcomeTab)) %>%
-        mutate(ratio=scales::percent(n/sum(n)), ratio2 = n/sum(n))
+      per_tab <- percent_table(proportion_table = proportionTable(), condition_var = input$condTab,
+                    outcome_var = input$outcomeTab)
 
       #need to figure out how to calculate cumulative sum?
       #https://stackoverflow.com/questions/43520318/how-to-use-percentage-as-label-in-stacked-bar-plot
 
-      proportionTable() %>%
-        ggplot(aes_string(x=input$condTab, fill=input$outcomeTab)) +
-        geom_bar(position="fill", color="black") +
-        theme(text=element_text(size=20), axis.text.x = element_text(angle = 90)) +
-        geom_label(data = percent_table, mapping = aes(y=ratio2, label=ratio), fill="white",
-                  position=position_fill(vjust=0.5)) +
-        viridis::scale_fill_viridis(discrete=TRUE, option="magma")
+      percent_plot(proportion_table = proportionTable(),
+                   percent_table = per_tab,
+                   outcome_var = input$outcomeTab,
+                   condition_var = input$condTab)
 
-      # group= !!sym(input$condTab)
     })
 
     output$distPlot <- renderPlot({

@@ -67,3 +67,29 @@ data_dictionary <- function(input, output, session, data_dict){
 
   })
 }
+
+
+percent_table <- function(proportion_table, condition_var, outcome_var){
+
+  percent_table <- proportion_table %>% data.frame() %>%
+    group_by(!!sym(condition_var)) %>%
+    count(!!sym(outcome_var)) %>%
+    mutate(ratio=scales::percent(n/sum(n)), ratio2 = n/sum(n),
+           pos=cumsum(ratio2))
+
+  percent_table
+
+}
+
+percent_plot <- function(proportion_table, percent_table, outcome_var, condition_var){
+
+  out_plot <- proportion_table %>%
+    ggplot(aes(x=!!sym(condition_var), fill=forcats::fct_rev(!!sym(outcome_var)))) +
+    geom_bar(position="fill", color="black") +
+    theme(text=element_text(size=20), axis.text.x = element_text(angle = 90)) +
+    geom_label(data = percent_table, mapping = aes(y=pos, label=ratio), fill="white"
+              , vjust= 1) +
+    viridis::scale_fill_viridis(discrete=TRUE, option="magma")
+
+  out_plot
+}
