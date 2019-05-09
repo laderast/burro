@@ -4,7 +4,7 @@
 \alias{explore_data}
 \title{Explore a dataaset using a simple app}
 \usage{
-explore_data(dataset, covariates = NULL, outcome_var,
+explore_data(dataset, covariates = NULL, outcome_var = NULL,
   data_dictionary = NULL)
 }
 \arguments{

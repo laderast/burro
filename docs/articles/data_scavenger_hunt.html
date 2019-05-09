@@ -53,10 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/contributing.html">Contributing to Burro</a>
+    </li>
+    <li>
       <a href="../articles/data_scavenger_hunt.html">Example Data Scavenger Hunt</a>
     </li>
     <li>
       <a href="../articles/making_a_burro_app.html">Making and Deploying a `burro` app</a>
+    </li>
+    <li>
+      <a href="../articles/preparing_data_for_burro.html">Preparing Data for Burro</a>
     </li>
   </ul>
 </li>
@@ -106,11 +112,11 @@
 <p>This is the most important part!</p>
 <p>Check out <a href="https://laderast.github.io/burro/articles/making_a_burro_app.html">Building a burro app</a> on how to build your app.</p>
 <p>We’re going to use the NHANES (National Health and Nutrition Examination Survey) dataset package as our dataset. Check out the burro app here: <a href="http://tladeras.shinyapps.io/nhanes_explore" class="uri">http://tladeras.shinyapps.io/nhanes_explore</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"NHANES"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"NHANES"</span>)</a></code></pre></div>
 <p>Load it up and take a look at the documentation for this dataset:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(NHANES)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(NHANES)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">?NHANES</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(NHANES)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(NHANES)</a>
+<a class="sourceLine" id="cb2-3" title="3">?NHANES</a></code></pre></div>
 </div>
 <div id="quick-intro-session" class="section level2">
 <h2 class="hasAnchor">

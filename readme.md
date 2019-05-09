@@ -93,3 +93,7 @@ The `esquisse` package (https://github.com/dreamRs/esquisse) is a wonderful star
 ## License
 
 `burro` is released under a MIT license.
+
+## Contributing
+
+We want you to contribute! See the [contributing link above](https://laderast.github.io/burro/CONTRIBUTING) for more info.

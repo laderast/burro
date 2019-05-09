@@ -1,0 +1,22 @@
+---
+title: "Contributing to Burro"
+author: "Ted Laderas"
+date: "5/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We want you to help contribute to `burro` - we especially need feedback on 
+
+- Testing the app on as many datasets as possible
+- Usability, especially for citizen datasets
+- Testing the deployment (which is currently the hardest part)
+
+If you are a novice or beginner, **your feedback is especially important**. Please consider contributing! We'll help you learn the basics of GitHub and make you a good open source collaborator.
+
+If you'd like to contribute, join our mailing list here, or email me at tedladeras@gmail.com and we will get in touch. We'd like to demonstrate and get some feedback 
+
+https://tinyletter.com/tladeras
