@@ -1,3 +1,7 @@
+---
+title: Contribute to Burro!
+---
+
 We want you to help contribute to `burro` - we especially need feedback on 
 
 - Testing the app on as many datasets as possible
