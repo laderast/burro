@@ -239,11 +239,11 @@ explore_data <- function(dataset, covariates=NULL,
       visdat::vis_dat(data.frame(dataOut())) +
         theme(axis.text.x = element_text(size = 15, angle = 45)) +
         viridis::scale_color_viridis(discrete=TRUE, option="magma")
-    })
+    }, , cacheKeyExpr= {dataOut()})
 
     output$summaryTable <- renderPrint({
       skimr::skim(dataOut()) #%>% skimr::kable()
-    }, cacheKeyExpr= {dataOut()})
+    })
 
     output$missingTab <- renderPlot({
 
