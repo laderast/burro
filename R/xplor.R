@@ -234,7 +234,7 @@ explore_data <- function(dataset, covariates=NULL,
     #     theme(axis.text.x = element_text(size = 15, angle = 90))
     # })
 
-    output$visdat <- renderPlot({
+    output$visdat <- renderCachedPlot({
 
       visdat::vis_dat(data.frame(dataOut())) +
         theme(axis.text.x = element_text(size = 15, angle = 45)) +
@@ -243,7 +243,7 @@ explore_data <- function(dataset, covariates=NULL,
 
     output$summaryTable <- renderPrint({
       skimr::skim(dataOut()) #%>% skimr::kable()
-    })
+    }, cacheKeyExpr= {dataOut()})
 
     output$missingTab <- renderPlot({
 
