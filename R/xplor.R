@@ -265,6 +265,7 @@ explore_data <- function(dataset, covariates=NULL,
       tab
     })
 
+
     proportionTable <- reactive({
 
       out <- dataOut()[,c(input$condTab, input$outcomeTab), with=FALSE]
