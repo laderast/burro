@@ -236,10 +236,12 @@ explore_data <- function(dataset, covariates=NULL,
 
     output$visdat <- renderCachedPlot({
 
-      visdat::vis_dat(data.frame(dataOut())) +
-        theme(axis.text.x = element_text(size = 15, angle = 45)) +
-        viridis::scale_color_viridis(discrete=TRUE, option="magma")
-    }, , cacheKeyExpr= {dataOut()})
+      visdat::vis_dat(data.frame(dataOut()), palette = "cb_safe") +
+        theme(axis.text.x = element_text(size = 15, angle = 45))
+    },
+
+    cacheKeyExpr= {dataOut()}
+    )
 
     output$summaryTable <- renderPrint({
       skimr::skim(dataOut()) #%>% skimr::kable()
