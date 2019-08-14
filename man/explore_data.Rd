@@ -50,7 +50,7 @@ if(interactive()){
    burro::explore_data(diamonds, outcome_var="cut")
 }
 
-
+# example with data dictionary
 # look at NHANES data (you need to have NHANES package installed)
 library(NHANES)
 data(NHANES)
