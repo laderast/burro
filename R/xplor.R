@@ -1,4 +1,4 @@
-#' Explore a dataaset using a simple app
+#' Explore a dataset using a simple app
 #'
 #' @param dataset - a data frame
 #' @param covariates - Optional. a character vector of column names you want

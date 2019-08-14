@@ -2,7 +2,7 @@
 % Please edit documentation in R/xplor.R
 \name{explore_data}
 \alias{explore_data}
-\title{Explore a dataaset using a simple app}
+\title{Explore a dataset using a simple app}
 \usage{
 explore_data(dataset, covariates = NULL, outcome_var = NULL,
   data_dictionary = NULL)
@@ -41,7 +41,7 @@ shiny server such as shinyapps.io. For building the actual app.R, see
 build_shiny_app
 }
 \description{
-Explore a dataaset using a simple app
+Explore a dataset using a simple app
 }
 \examples{
 library(ggplot2)
