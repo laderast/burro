@@ -23,7 +23,8 @@ to include in the dataset
 
 \item{data_dictionary}{\itemize{
 \item Optional. A data.frame describing covariates. This is passed
-on to DT:data.table() so it can be easily searched
+on to DT:data.table() so it can be easily searched. There is no required format,
+but the example uses two columns: \code{VariableName} and \code{Description}.
 }
 
 \code{explore_data} gives you a simple shiny app to explore data, The app is tailored to the
@@ -50,6 +51,12 @@ if(interactive()){
 }
 
 
-
-#need another example here
+# look at NHANES data (you need to have NHANES package installed)
+library(NHANES)
+data(NHANES)
+if(interactive()){
+  #this data dictionary is provided since NHANES doesn't have one
+  data_dict <- read.csv(system.file("nhanes/data_dictionary.csv", package="burro"))
+  burro::explore_data(NHANES[1:10,], data_dictionary=data_dict)
+}
 }

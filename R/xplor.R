@@ -5,7 +5,8 @@
 #' to include in the dataset
 #' @param outcome_var - a categorical variable that describes an outcome to examine
 #' @param data_dictionary - Optional. A data.frame describing covariates. This is passed
-#' on to DT:data.table() so it can be easily searched
+#' on to DT:data.table() so it can be easily searched. There is no required format,
+#' but the example uses two columns: `VariableName` and `Description`.
 #'
 #'
 #' `explore_data` gives you a simple shiny app to explore data, The app is tailored to the
@@ -35,9 +36,15 @@
 #'    burro::explore_data(diamonds, outcome_var="cut")
 #' }
 #'
-#'
-#'
-#' #need another example here
+#' # example with data dictionary
+#' # look at NHANES data (you need to have NHANES package installed)
+#' library(NHANES)
+#' data(NHANES)
+#' if(interactive()){
+#'   #this data dictionary is provided since NHANES doesn't have one
+#'   data_dict <- read.csv(system.file("nhanes/data_dictionary.csv", package="burro"))
+#'   burro::explore_data(NHANES[1:10,], data_dictionary=data_dict)
+#' }
 explore_data <- function(dataset, covariates=NULL,
                          outcome_var=NULL, data_dictionary=NULL) {
   #needed to show spark histograms
@@ -139,7 +146,7 @@ explore_data <- function(dataset, covariates=NULL,
 
                        tabPanel("Data Dictionary",
                                 #tags$head(tags$style("#TxtOut {white-space: nowrap;}")),
-                                fluidRow(dataTableOutput("data_dict"))
+                                fluidRow(DT::DTOutput("data_dict"))
                        )
 
                 )
@@ -167,7 +174,9 @@ explore_data <- function(dataset, covariates=NULL,
                                             choices=categoricalVars, selected=categoricalVars[1]),
                                 selectInput(inputId = "crossTab2", "Select Crosstab Variable (y)",
                                             choices=categoricalVars, selected=categoricalVars[1]),
+                                plotly::plotlyOutput("cross_size"),
                                 verbatimTextOutput("crossTab")
+
                        ),
 
                        tabPanel("Missing Data Explorer",
@@ -265,6 +274,15 @@ explore_data <- function(dataset, covariates=NULL,
       tab
     })
 
+    output$cross_size <- plotly::renderPlotly({
+      outplot <- dataOut() %>%
+        data.frame() %>%
+        ggplot(aes_string(y=input$crossTab1, x=input$crossTab2)) +
+        geom_count() +
+        theme(axis.text.x=element_text(angle=90))
+
+      plotly::ggplotly(outplot, tooltip = "n")
+    })
 
     proportionTable <- reactive({
 
@@ -299,15 +317,15 @@ explore_data <- function(dataset, covariates=NULL,
 
     output$boxPlot <- renderPlot({
       outPlot <- ggplot(dataOut(), aes_string(x=input$catVarBox,
-                                              y=input$numericVarBox, fill=input$catVarBox)) +
+                                              y=input$numericVarBox,
+                                              fill=input$catVarBox)) +
         geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
-                                 element_text(angle=90)) #+
-        #viridis::scale_fill_viridis(discrete=TRUE, option="magma")
+                                 element_text(angle=90))
       outPlot
     })
 
-   output$data_dict <- renderDataTable({
-     print(data_dictionary)
+   output$data_dict <- DT::renderDT({
+     #print(data_dictionary)
 
      if(is.null(data_dictionary)){
           return(NULL)
@@ -336,7 +354,6 @@ explore_data <- function(dataset, covariates=NULL,
   app_list <- getOption("app_list")
 
   if(!is.null(app_list) && getOption("app_list")==TRUE){
-
     return(list(ui=ui, server=server))
   }
 

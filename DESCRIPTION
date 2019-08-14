@@ -23,6 +23,7 @@ Imports:
     magrittr,
     glue,
     usethis,
+    plotly,
     here,
     viridis,
     forcats,
