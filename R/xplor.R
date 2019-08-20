@@ -303,7 +303,8 @@ explore_data <- function(dataset, covariates=NULL,
 
       percent_plot(proportion_table = proportionTable(),
                    outcome_var = input$outcomeTab,
-                   condition_var = input$condTab)
+                   condition_var = input$condTab) +
+        theme(legend.position = "None")
 
     })
 
@@ -320,7 +321,8 @@ explore_data <- function(dataset, covariates=NULL,
                                               y=input$numericVarBox,
                                               fill=input$catVarBox)) +
         geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
-                                 element_text(angle=90))
+                                 element_text(angle=90)) +
+        theme(legend.position = "None")
       outPlot
     })
 
