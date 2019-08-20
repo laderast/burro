@@ -235,7 +235,7 @@ explore_data <- function(dataset, covariates=NULL,
         viridis::scale_fill_viridis(discrete=TRUE, option="magma") +
         geom_text(aes(group=gr, label = scales::percent(..prop..),
                       y= ..count..), stat= "count", vjust=-0.5) +
-        theme(axis.text.x=element_text(angle=90))
+        theme(axis.text.x=element_text(angle=90), legend.position = "none")
     })
 
     # output$missing_clusters <- renderPlot({
@@ -322,7 +322,7 @@ explore_data <- function(dataset, covariates=NULL,
                                               fill=input$catVarBox)) +
         geom_boxplot() + theme(text=element_text(size=20), axis.text.x =
                                  element_text(angle=90)) +
-        theme(legend.position = "None")
+        theme(legend.position = "none")
       outPlot
     })
 
