@@ -553,9 +553,11 @@ build_shiny_app <- function(dataset, covariates, outcome_var, data_dictionary=NU
   data_dict <- NULL
 
   data_dict_path <- here('data', 'data_dictionary.rds')
-  if(file.exists(data_dict_path)) {
+  if(file.exists(data_dict_path)) {{
+
       data_dict <- readRDS(data_dict_path)
-  }
+
+  }}
 
   #edit your covariates here
   covars <- {covar_string}
