@@ -5,6 +5,11 @@ get_numeric_variables <- function(df){
   varClass <- sapply(df, class)
 
   numericVars <- names(varClass[varClass %in% c("numeric", "integer", "Date")])
+
+  if(length(numericVars) == 0){
+    numericVars <- NULL
+  }
+
   return(numericVars)
 }
 

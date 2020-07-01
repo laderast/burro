@@ -15,3 +15,10 @@ test_that("get category variables works", {
   expect_equal(names(cats1), "Species")
   expect_equal(NULL, cats4)
 })
+
+data1 <- check_data(mtcars)
+data2 <- check_data(diamonds)
+
+test_that("check_data works",{
+
+})

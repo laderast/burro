@@ -2,6 +2,7 @@
 
 export("%>%")
 export(build_shiny_app)
+export(check_data)
 export(explore_data)
 import(dplyr)
 import(ggplot2)
