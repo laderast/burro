@@ -48,7 +48,7 @@
 explore_data <- function(dataset, covariates=NULL,
                          outcome_var=NULL, data_dictionary=NULL) {
   #needed to show spark histograms
-  Sys.setlocale("LC_CTYPE", "Chinese")
+  #Sys.setlocale("LC_CTYPE", "Chinese")
   dataset_name <- deparse(substitute(dataset))
 
 

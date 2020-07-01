@@ -4,7 +4,7 @@
 get_numeric_variables <- function(df){
   varClass <- sapply(df, class)
 
-  numericVars <- names(varClass[varClass %in% c("numeric", "integer")])
+  numericVars <- names(varClass[varClass %in% c("numeric", "integer", "Date")])
   return(numericVars)
 }
 
@@ -38,6 +38,10 @@ get_category_variables <- function(df) {
 
   ##remove null values from list
   char_list <- char_list[lapply(char_list,length)!=0]
+
+  if(length(char_list) == 0){
+    char_list <- NULL
+  }
 
   return(char_list)
 
