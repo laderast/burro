@@ -2,16 +2,37 @@
 % Please edit documentation in R/check_data.R
 \name{check_data}
 \alias{check_data}
-\title{Checks the Dataset and sets attributes on it for use in}
+\title{Checks the Dataset and sets attributes on it for use in explore_data}
 \usage{
 check_data(dataset, covariates = NULL, outcome_var = NULL)
 }
 \arguments{
-\item{outcome_var}{}
+\item{dataset}{\itemize{
+\item dataset
+}}
+
+\item{covariates}{\itemize{
+\item optional. Character vector containing columns to subset dataset to.
+If NULL, then all columns will be used.
+}}
+
+\item{outcome_var}{\itemize{
+\item optional. Character vector containing columns of outcome.
+These columns must be factors or characters. If NULL, all categorical variables
+are used as possible outcomes
+}}
 }
 \value{
-
+data.table with the following attributes: outcome_var (validated outcomes),
 }
 \description{
-Checks the Dataset and sets attributes on it for use in
+Checks the Dataset and sets attributes on it for use in explore_data
+}
+\examples{
+library(ggplot2)
+data(diamonds)
+diamond_frame <- check_data(diamonds, outcome_var=c("cut"))
+attr(diamond_frame, "categoricalVars")
+attr(diamond_frame, "numericVars")
+attr(diamond_frame, "outcome_var")
 }

@@ -1,0 +1,44 @@
+---
+title: "Burro App"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+#use rmarkdown::run() to run app
+#https://somtom.github.io/post/using-dynamically-rendered-r-markdown-childs-for-reports/
+#https://www.andrewheiss.com/blog/2020/01/01/flexdashboard-dynamic-data/
+```
+
+
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
+
