@@ -1,5 +1,4 @@
 context("test-get_categorical_data")
-source("R/helper.R")
 library(ggplot2)
 library(fivethirtyeight)
 data(diamonds)
@@ -16,9 +15,16 @@ test_that("get category variables works", {
   expect_equal(NULL, cats4)
 })
 
+#checking whether check_data assigns attributes correctly
 data1 <- check_data(mtcars)
 data2 <- check_data(diamonds)
 
 test_that("check_data works",{
+  expect_null(attr(data1, "categoricalVars"))
+  expect_equal(11, length(attr(data1, "numericVars")))
+  expect_equal(3, length(attr(data2, "categoricalVars")))
+  expect_equal(7, length(attr(data2, "numericVars")))
 
 })
+
+

@@ -1,13 +1,23 @@
-#' Checks the Dataset and sets attributes on it for use in
+#' Checks the Dataset and sets attributes on it for use in explore_data
 #'
-#' @param dataset
-#' @param covariates
-#' @param outcome_var
+#' @param dataset - dataset
+#' @param covariates - optional. Character vector containing columns to subset dataset to.
+#' If NULL, then all columns will be used.
+#' @param outcome_var - optional. Character vector containing columns of outcome.
+#' These columns must be factors or characters. If NULL, all categorical variables
+#' are used as possible outcomes
 #'
-#' @return
+#' @return data.table with the following attributes: outcome_var (validated outcomes),
+#'
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
+#' data(diamonds)
+#' diamond_frame <- check_data(diamonds, outcome_var=c("cut"))
+#' attr(diamond_frame, "categoricalVars")
+#' attr(diamond_frame, "numericVars")
+#' attr(diamond_frame, "outcome_var")
 check_data <- function(dataset, covariates=NULL, outcome_var=NULL){
 
     covariates_in_data <- covariates %in% colnames(dataset)
