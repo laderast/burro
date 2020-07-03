@@ -1,7 +1,8 @@
-#' Title
+#' Explore data with a shiny app
 #'
 #' @param dataset - dataset to explore
-#' @param data_dictionary
+#' @param data_dictionary - optional. Data dictionary with
+#' information about variables
 #'
 #' @return
 #' @export
