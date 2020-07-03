@@ -1,0 +1,114 @@
+---
+title: "Burro App"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+#use rmarkdown::run() to run app
+#https://somtom.github.io/post/using-dynamically-rendered-r-markdown-childs-for-reports/
+#https://www.andrewheiss.com/blog/2020/01/01/flexdashboard-dynamic-data/
+```
+
+
+Data Overview
+=======================================================================
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Visual Summary
+
+```{r}
+
+```
+
+### Tabular Summary
+
+```{r}
+
+```
+
+### Data Dictionary
+
+```{r}
+
+```
+
+Categorical Data
+=======================================================================
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+### Single Variable
+
+```{r}
+
+```
+
+### Outcome View
+
+```{r}
+
+```
+
+### Tabular
+
+```{r}
+
+```
+
+Continuous Data
+=======================================================================
+
+### Histogram Explorer
+
+```{r}
+
+```
+
+### Boxplot Explorer
+
+```{r}
+
+```
+
+### Correlation Explorer
+
+```{r}
+
+```
+
+
+```{r render subpages, include=FALSE}
+# Get all unique product groups for the subpages
+product_groups <- unique(data$product_group)
+
+# Create variable which stores all subpages outputs
+out = NULL
+
+# Set knitr options to allow duplicate labels (needed for the subpages)
+options(knitr.duplicate.label = 'allow')
+
+# Create temporary environment which we use for knitting subpages.RMD 
+subpage_env <- new.env()
+
+for (pg in product_groups) {
+  # Filter data for product group 
+  subpage_data <- data %>% 
+    filter(product_group == pg)
+  
+  # Assign filtered data and product group to subpage_env 
+  assign("subpage_data", subpage_data, subpage_env)
+  assign("product_group", pg, subpage_env)
+  
+  # Knit subpage.RMD using the subpage_env and add result to out vector
+  out = c(out, knitr::knit_child('subpage.RMD', envir = subpage_env))
+}
+```
+
+`r paste(knitr::knit_child(text = out), collapse = '')`
