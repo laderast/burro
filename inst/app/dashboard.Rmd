@@ -33,9 +33,7 @@ outcome_var <- attr(my_data_table, "outcome_var")
 cat_no_outcome <- attr(my_data_table, "cat_no_outcome")
 
  dataOut <- reactive({
-      #req(input$cohort)
-      my_data_table #%>% filter_(cohortList[[input$cohort]])
-
+      my_data_table 
     })
 
 #use rmarkdown::run() to run app
