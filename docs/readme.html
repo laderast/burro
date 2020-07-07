@@ -160,11 +160,12 @@ remotes::install_github("laderast/burro")</code></pre>
 <div id="dataset-requirements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dataset-requirements" class="anchor"></a>Dataset requirements</h2>
-<p><code>burro</code> expects a dataset as a <code>data.frame</code> or <code>data.table</code>. If the variable is categorical, then the variable should be cast to <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> or <code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code>. For example:</p>
-<pre class="{r}"><code>data(mtcars)
+<p><code>burro</code> expects a dataset as a <code>data.frame</code> or <code>data.table</code>. It attempts to automatically figure out which variables to use in specific visualizations.</p>
+<p>If the variable is categorical, then the variable should be cast as <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> or <code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code>. For example:</p>
+<pre><code>data(mtcars)
 mtcars$cyl &lt;- factor(mtcars$cyl)
 mtcars$gear &lt;- factor(mtcars$gear)
-</code></pre>
+explore_data(mtcars)</code></pre>
 <p><code>burro</code> can utilize an <em>outcome variable</em>, which should be categorical/factor.</p>
 <p>It’s on my list of things to do to make <code>burro</code> adaptive to the data passed into it, but it currently is pretty inflexible about these two things.</p>
 <p>An optional (though helpful) requirement is to have a data dictionary which has a column called <code>variableNames</code> that defines each variable in the dataset.</p>

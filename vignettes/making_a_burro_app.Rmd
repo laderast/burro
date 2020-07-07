@@ -8,6 +8,12 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# This document is currently out of date
+
+The `build_shiny_app` function is currently incompatible with the new version of `explore_data()`. We will update it when it is ready.
+
+Until then, you can use the `Publish()` button to publish a site to `shinyapps.io`.
+
 
 ## Note
 

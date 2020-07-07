@@ -21,13 +21,15 @@ remotes::install_github("laderast/burro")
 
 ## Dataset requirements
 
-`burro` expects a dataset as a `data.frame` or `data.table`. If the variable is categorical, then the variable should be cast to `factor()` or `ordered()`. For example:
+`burro` expects a dataset as a `data.frame` or `data.table`. It attempts to automatically figure out which variables to use in specific visualizations. 
 
-```{r}
+If the variable is categorical, then the variable should be cast as `factor()` or `ordered()`. For example:
+
+```
 data(mtcars)
 mtcars$cyl <- factor(mtcars$cyl)
 mtcars$gear <- factor(mtcars$gear)
-
+explore_data(mtcars)
 ```
 
 `burro` can utilize an *outcome variable*, which should be categorical/factor.
