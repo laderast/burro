@@ -5,7 +5,6 @@ data(diamonds)
 
 cats1 <- get_category_variables(iris)
 cats2 <- get_category_variables(diamonds)
-cats3 <- get_category_variables(candy_rankings)
 cats4 <- get_category_variables(mtcars)
 
 test_that("get category variables works", {

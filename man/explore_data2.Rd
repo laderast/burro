@@ -2,16 +2,23 @@
 % Please edit documentation in R/run_dashboard.R
 \name{explore_data2}
 \alias{explore_data2}
-\title{Title}
+\title{Explore data with a shiny app}
 \usage{
 explore_data2(dataset, data_dictionary = NULL)
 }
 \arguments{
-\item{data_dictionary}{}
+\item{dataset}{\itemize{
+\item dataset to explore
+}}
+
+\item{data_dictionary}{\itemize{
+\item optional. Data dictionary with
+information about variables
+}}
 }
 \value{
 
 }
 \description{
-Title
+Explore data with a shiny app
 }

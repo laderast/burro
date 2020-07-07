@@ -1,0 +1,151 @@
+---
+title: "`r dataset_name`"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(ggplot2)
+library(burro)
+library(dplyr)
+library(plotly)
+
+#skimr::fix_windows_histograms()
+
+if(!exists("dataset")){
+  data(diamonds)
+  dataset <- diamonds
+#  stop("You need to input a dataset")
+}
+
+options(DT.options = list(scrollY="100vh"))
+
+#dataset <- diamonds
+
+my_data_table <- burro::check_data(dataset)
+
+numericVars <- attr(my_data_table, "numericVars")
+categoricalVars <- attr(my_data_table, "categoricalVars")
+outcome_var <- attr(my_data_table, "outcome_var")
+cat_no_outcome <- attr(my_data_table, "cat_no_outcome")
+
+ dataOut <- reactive({
+      my_data_table 
+    })
+
+#use rmarkdown::run() to run app
+#https://somtom.github.io/post/using-dynamically-rendered-r-markdown-childs-for-reports/
+#https://www.andrewheiss.com/blog/2020/01/01/flexdashboard-dynamic-data/
+```
+
+
+Data Overview
+=======================================================================
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Visual Summary
+
+```{r}
+plotOutput("visdat")
+
+output$visdat <- renderCachedPlot({
+
+      visdat::vis_dat(data.frame(dataOut()), palette = "cb_safe") +
+        theme(axis.text.x = element_text(size = 15, angle = 45))
+    },
+
+    cacheKeyExpr= {dataOut()}
+    )
+```
+
+### Tabular Summary
+
+```{r}
+#not interactive - using knitr.print defaults to make it look better
+skimr::skim(my_data_table)
+```
+
+### Data Dictionary
+
+```{r}
+fillCol(
+DT::DTOutput("data_dict")
+)
+
+output$data_dict <- DT::renderDT({
+     #print(data_dictionary)
+
+     if(is.null(data_dictionary)){
+          return(NULL)
+     }
+
+      DT::datatable(data_dictionary, options=list(pageLength=50))
+    })
+
+```
+
+Categorical Data
+=======================================================================
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+### Single Variable
+
+```{r}
+burro:::cat_single_ui("category", categoricalVars)
+burro:::cat_single_server("category", categoricalVars, dataOut)
+```
+
+### Outcome View
+
+```{r}
+burro:::cat_outcome_ui("outcome", outcome_var, cat_no_outcome)
+burro:::cat_outcome_server("outcome", outcome_var, cat_no_outcome, dataOut)
+```
+
+### Tabular
+
+```{r}
+burro:::cat_tabular_ui(id="tabular", categoricalVars)
+burro:::cat_tabular_server(id="tabular", dataOut)
+```
+
+### Missing Data Explorer
+
+```{r}
+burro:::cat_missing_ui("missing", categoricalVars)
+burro:::cat_missing_server("missing", dataOut)
+```
+
+Continuous Data
+=======================================================================
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Histogram Explorer
+
+```{r}
+cont_hist_ui("histogram", numericVars)
+cont_hist_server("histogram", dataOut)
+```
+
+### Boxplot Explorer
+
+```{r}
+cont_boxplot_ui(id="boxplot", numericVars, categoricalVars)
+cont_boxplot_server(id="boxplot", dataOut)
+```
+
+### Correlation Explorer
+
+```{r}
+cont_scatter_ui(id="corr_plot", numericVars)
+cont_scatter_server(id="corr_plot", dataOut)
+```

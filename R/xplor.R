@@ -21,7 +21,6 @@
 #' @return A Shiny App object that can either be run in the console or on an external
 #' shiny server such as shinyapps.io. For building the actual app.R, see
 #' build_shiny_app
-#' @export
 #' @import shiny
 #' @import shinydashboard
 #' @import ggplot2
@@ -45,7 +44,7 @@
 #'   data_dict <- read.csv(system.file("nhanes/data_dictionary.csv", package="burro"))
 #'   burro::explore_data(NHANES[1:10,], data_dictionary=data_dict)
 #' }
-explore_data <- function(dataset, covariates=NULL,
+explore_data_old <- function(dataset, covariates=NULL,
                          outcome_var=NULL, data_dictionary=NULL) {
   #needed to show spark histograms
   #Sys.setlocale("LC_CTYPE", "Chinese")

@@ -12,6 +12,7 @@ library(flexdashboard)
 library(ggplot2)
 library(burro)
 library(dplyr)
+library(plotly)
 
 #skimr::fix_windows_histograms()
 
@@ -66,42 +67,8 @@ output$visdat <- renderCachedPlot({
 ### Tabular Summary
 
 ```{r}
-#dataTableOutput("summaryTable")
-#fillCol(verbatimTextOutput("skim_summary")#,
-        #tableOutput("skim_factor")#,
-        #tableOutput("skim_character"),
-        #tableOutput("skim_numeric"),
-#)
-
+#not interactive - using knitr.print defaults to make it look better
 skimr::skim(my_data_table)
-
-
-# data_partitioned <- reactive({
-#   dataOut() %>% skimr::skim()
-# })
-# 
-# output$skim_summary <- renderPrint({
-#   dataOut() %>% skimr::skim() %>% skimr:::print.skim_df()
-# })
-# 
-# output$skim_character <- renderTable({
-# 
-#     data_partitioned() %>% yank("factor")
-#   
-# })
-# 
-# 
-# 
-# output$skim_factor <- renderTable({
-#   if(is.null(data_partitioned()$factor)){
-#     return(NULL)
-#   }
-#   data_partitioned()$factor
-#   
-# })
-
-
-
 ```
 
 ### Data Dictionary
@@ -168,7 +135,7 @@ fillCol(flex = c(NA,1),
     selectInput(inputId = "outcomeTab", "Select Outcome Variable",
             choices=outcome_var, selected=outcome_var[2])),
 
-    plotOutput("proportionBarplot")
+    plotlyOutput("proportionBarplot")
 )
 
     proportionTable <- reactive({
@@ -184,15 +151,17 @@ fillCol(flex = c(NA,1),
     })
 
 
-    output$proportionBarplot <- renderPlot({
+    output$proportionBarplot <- renderPlotly({
 
       #need to figure out how to calculate cumulative sum?
       #https://stackoverflow.com/questions/43520318/how-to-use-percentage-as-label-in-stacked-bar-plot
 
-      burro:::percent_plot(proportion_table = proportionTable(),
+      out_plot <- burro:::percent_plot(proportion_table = proportionTable(),
                    outcome_var = input$outcomeTab,
                    condition_var = input$condTab) +
         theme(legend.position = "None")
+      
+      ggplotly(out_plot, tooltip = c("x", "fill", "y"))
 
     })
 
