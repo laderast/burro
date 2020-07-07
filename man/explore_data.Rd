@@ -57,7 +57,7 @@ if(interactive()){
 data(mtcars)
 mtcars$cyl <- factor(mtcars$cyl)
 mtcars$am <- factor(mtcars$am)
-mtcars$gear <- factor(mtcar$gear)
+mtcars$gear <- factor(mtcars$gear)
 
 if(interactive()){
    burro::explore_data(mtcars)
