@@ -1,9 +1,10 @@
-pandoc: 2.7.1
-pkgdown: 1.3.0
+pandoc: 2.7.2
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   contributing: contributing.html
   data_scavenger_hunt: data_scavenger_hunt.html
   making_a_burro_app: making_a_burro_app.html
   preparing_data_for_burro: preparing_data_for_burro.html
+last_built: 2020-07-07T20:42Z
 

@@ -1,7 +1,7 @@
 Package: burro
 Type: Package
 Title: Shiny App Package for setting up a data exploration session ("burro"w into the data)
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: as.person(c(
     "Ted Laderas <tedladeras@gmail.com> [aut, cre]", 
     "Jessica Minnier <minnier@ohsu.edu> [ctb]",

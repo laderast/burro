@@ -15,15 +15,23 @@ By concentrating on the data visualization first, `burro` apps let us have conve
 `burro` is currently only on github and not on CRAN yet. To install it, run the following.
 
 ```{r}
-install.packages("devtools")
-devtools::install_github("laderast/burro")
+install.packages("remotes")
+remotes::install_github("laderast/burro")
 ```
 
 ## Dataset requirements
 
-`burro` expects a dataset as a `data.frame` or `data.table`. The dataset should have at least 2 numeric variables and two categorical variables. 
+`burro` expects a dataset as a `data.frame` or `data.table`. If the variable is categorical, then the variable should be cast to `factor()` or `ordered()`. For example:
 
-`burro` requires an *outcome variable*, which should be categorical/factor.
+```{r}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl)
+mtcars$gear <- factor(mtcars$gear)
+
+```
+
+`burro` can utilize an *outcome variable*, which should be categorical/factor.
+
 It's on my list of things to do to make `burro` adaptive to the data passed into it, but it currently is pretty inflexible about these two things. 
 
 An optional (though helpful) requirement is to have a data dictionary which has a column called `variableNames` that defines each variable in the dataset.
@@ -46,14 +54,8 @@ data_dict <- readr::read_csv(system.file("nhanes/data_dictionary.csv", package="
 
 ##specify outcome variable here
 outcome <- c("Depressed")
-## specify covariates here (including outcome variable)
-covars <- c("Gender", "Age", "SurveyYr", "Race1", "Race3" ,"MaritalStatus",
-                "BMI", "HHIncome", "Education",
-                "BMI_WHO", "BPSysAve", "TotChol", "Depressed", "LittleInterest",
-                "SleepHrsNight", "SleepTrouble", "TVHrsDay", "AlcoholDay",
-                "Marijuana", "RegularMarij", "HardDrugs")
-                
-explore_data(dataset=NHANES, covariates=covars, data_dictionary=data_dict, outcome_var=outcome)
+
+explore_data(dataset=NHANES, data_dictionary=data_dict, outcome_var=outcome)
 ```
 
 ## Running `burro` on `biopics` data from `fivethirtyeight`
@@ -92,7 +94,7 @@ The `esquisse` package (https://github.com/dreamRs/esquisse) is a wonderful star
 
 ## License
 
-`burro` is released under a MIT license.
+`burro` is released under a MIT license. Please let us know if you are using `burro` in your work! 
 
 ## Contributing
 
