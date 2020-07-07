@@ -12,7 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The `build_shiny_app` function is currently incompatible with the new version of `explore_data()`. We will update it when it is ready.
 
-Until then, you can use the `Publish()` button to publish a site to `shinyapps.io`.
+Until then, you can use the `Publish()` button to publish a site to `shinyapps.io`: https://docs.rstudio.com/shinyapps.io/getting-started.html
+
+A very good guide to publishing to shinyapps.io is here: https://towardsdatascience.com/how-to-publish-a-shiny-app-example-with-shinyapps-io-ec6c6604d8
 
 
 ## Note
