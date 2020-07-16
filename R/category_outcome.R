@@ -7,13 +7,13 @@ cat_outcome_ui <- function(id, outcome_var, cat_no_outcome){
             selectInput(inputId = NS(id, "outcomeTab"), "Select Outcome Variable",
                         choices=outcome_var, selected=outcome_var[2])),
 
-          plotlyOutput(NS(id, "proportionBarplot"))
+          plotly::plotlyOutput(NS(id, "proportionBarplot"))
 
   )
 
 }
 
-cat_outcome_server <- function(id, outcome_var, cat_no_outcome, dataOut){
+cat_outcome_server <- function(id, dataOut){
   moduleServer(id, function(input, output, session){
     proportionTable <- reactive({
       out <- dataOut()[,c(input$condTab,
@@ -27,7 +27,7 @@ cat_outcome_server <- function(id, outcome_var, cat_no_outcome, dataOut){
     })
 
 
-    output$proportionBarplot <- renderPlotly({
+    output$proportionBarplot <- plotly::renderPlotly({
       #need to figure out how to calculate cumulative sum?
       #https://stackoverflow.com/questions/43520318/how-to-use-percentage-as-label-in-stacked-bar-plot
 
@@ -43,3 +43,27 @@ cat_outcome_server <- function(id, outcome_var, cat_no_outcome, dataOut){
   })
 }
 
+cat_outcome_app <- function(dataset){
+
+  id <- "new_app"
+  my_data_table <- check_data(dataset)
+  dataOut <- reactive({my_data_table})
+
+  numericVars <- attr(my_data_table, "numericVars")
+  categoricalVars <- attr(my_data_table, "categoricalVars")
+  outcome_var <- attr(my_data_table, "outcome_var")
+  cat_no_outcome <- attr(my_data_table, "cat_no_outcome")
+
+
+  ui <- fluidPage(
+    cat_outcome_ui(id, outcome_var = outcome_var,
+                   cat_no_outcome = cat_no_outcome)
+  )
+
+  server <- function(input, output, session){
+    cat_outcome_server(id, dataOut)
+  }
+
+  shinyApp(ui, server)
+
+}

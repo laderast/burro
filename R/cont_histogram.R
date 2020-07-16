@@ -8,7 +8,6 @@ cont_hist_ui <- function(id, numericVars){
   plotOutput(NS(id, "histPlot"))
   )
 
-
 }
 
 cont_hist_server <- function(id, dataOut){
@@ -22,4 +21,48 @@ cont_hist_server <- function(id, dataOut){
   outPlot
 })
 })
+}
+
+#' App for exploring data using histograms
+#'
+#' This is an embeddable app that lets you explore the distribution
+#' of continuous variables
+#'
+#' This can be embedded into rmarkdown documents that use
+#' runtime: shiny.
+#'
+#' @param dataset - dataset that contains numeric variables
+#'
+#'
+#' @return Shiny App
+#' @export
+#'
+#' @examples
+#'
+#' library(ggplot2)
+#' data(diamonds)
+#' cont_hist_app(diamonds)
+#'
+cont_hist_app <- function(dataset){
+
+  id <- "new_app"
+  my_data_table <- check_data(dataset)
+  dataOut <- reactive({my_data_table})
+
+  numericVars <- attr(my_data_table, "numericVars")
+  categoricalVars <- attr(my_data_table, "categoricalVars")
+  outcome_var <- attr(my_data_table, "outcome_var")
+  cat_no_outcome <- attr(my_data_table, "cat_no_outcome")
+
+
+  ui <- fluidPage(
+    cont_hist_ui(id, numericVars)
+  )
+
+  server <- function(input, output, session){
+    cont_hist_server(id, dataOut)
+  }
+
+  shinyApp(ui, server)
+
 }

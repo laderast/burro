@@ -1,5 +1,5 @@
 ---
-title: "`r dataset_name`"
+title: "`r if(exists('dataset_name')){dataset_name}`"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -19,6 +19,7 @@ library(plotly)
 if(!exists("dataset")){
   data(diamonds)
   dataset <- diamonds
+  #dataset_name <- deparse(substitute(dataset))
 #  stop("You need to input a dataset")
 }
 
@@ -99,14 +100,14 @@ Row  {.tabset .tabset-fade}
 
 ```{r}
 burro:::cat_single_ui("category", categoricalVars)
-burro:::cat_single_server("category", categoricalVars, dataOut)
+burro:::cat_single_server("category", dataOut, dataset_name)
 ```
 
 ### Outcome View
 
 ```{r}
 burro:::cat_outcome_ui("outcome", outcome_var, cat_no_outcome)
-burro:::cat_outcome_server("outcome", outcome_var, cat_no_outcome, dataOut)
+burro:::cat_outcome_server("outcome", dataOut)
 ```
 
 ### Tabular
@@ -132,20 +133,20 @@ Row  {.tabset .tabset-fade}
 ### Histogram Explorer
 
 ```{r}
-cont_hist_ui("histogram", numericVars)
-cont_hist_server("histogram", dataOut)
+burro:::cont_hist_ui("histogram", numericVars)
+burro:::cont_hist_server("histogram", dataOut)
 ```
 
 ### Boxplot Explorer
 
 ```{r}
-cont_boxplot_ui(id="boxplot", numericVars, categoricalVars)
-cont_boxplot_server(id="boxplot", dataOut)
+burro:::cont_boxplot_ui(id="boxplot", numericVars, categoricalVars)
+burro:::cont_boxplot_server(id="boxplot", dataOut)
 ```
 
 ### Correlation Explorer
 
 ```{r}
-cont_scatter_ui(id="corr_plot", numericVars)
-cont_scatter_server(id="corr_plot", dataOut)
+burro:::cont_scatter_ui(id="corr_plot", numericVars)
+burro:::cont_scatter_server(id="corr_plot", dataOut)
 ```

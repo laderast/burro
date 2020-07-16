@@ -37,3 +37,47 @@ cont_scatter_server <- function(id, dataOut){
 
   })
 }
+
+
+#' App for exploring data using scatter plots
+#'
+#' This is an embeddable app that lets you explore the relationship
+#' between continuous variables.
+#'
+#' This can be embedded into rmarkdown documents that use
+#' runtime: shiny.
+#'
+#' @param dataset
+#'
+#' @return shiny app that can be embedded in a doc
+#' @export
+#'
+#' @examples
+#'
+#' library(ggplot2)
+#' data(diamonds)
+#' cont_scatter_app(diamonds)
+cont_scatter_app <- function(dataset){
+
+  id <- "new_app"
+  my_data_table <- check_data(dataset)
+  dataOut <- reactive({my_data_table})
+
+  numericVars <- attr(my_data_table, "numericVars")
+  categoricalVars <- attr(my_data_table, "categoricalVars")
+  outcome_var <- attr(my_data_table, "outcome_var")
+  cat_no_outcome <- attr(my_data_table, "cat_no_outcome")
+
+
+  ui <- fluidPage(
+    cont_scatter_ui(id, numericVars)
+  )
+
+  server <- function(input, output, session){
+    cont_scatter_server(id, dataOut)
+  }
+
+  shinyApp(ui, server)
+
+}
+

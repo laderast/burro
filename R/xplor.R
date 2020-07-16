@@ -513,16 +513,18 @@ build_shiny_app <- function(dataset, covariates, outcome_var, data_dictionary=NU
   #edit your covariates here
   covars <- {covar_string}
 
+  burro::explore_data(dataset, outcome_var, data_dictionary)
+
   #build the burro app and run it
-  app_list <- burro::explore_data(dataset={folder_name},
-        covariates=covars, outcome_var=outcome_var,
-        data_dictionary=data_dict)
+  #app_list <- burro::explore_data(dataset={folder_name},
+  #      covariates=covars, outcome_var=outcome_var,
+  #      data_dictionary=data_dict)
 
-  ui <- app_list[['ui']]
-  server <- app_list[['server']]
+  #ui <- app_list[['ui']]
+  #server <- app_list[['server']]
 
-  app <- shiny::shinyApp(ui, server)
-  app"
+  #app <- shiny::shinyApp(ui, server)
+  #app"
 
   out_string <- glue(out_app_string)
 

@@ -27,7 +27,10 @@ Imports:
     here,
     viridis,
     forcats,
-    DT
+    DT,
+    styler,
+    shinyjs,
+    miniUI
 Depends: 
     shiny
 Roxygen: list(markdown = TRUE)
